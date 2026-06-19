@@ -48,6 +48,15 @@
     [data-projects]{grid-template-columns:1fr !important;}
     [data-bchips]{grid-template-columns:1fr !important;}
   }
+  /* ── Card hover animations ── */
+  [data-4col] > div{transition:transform .28s ease,box-shadow .28s ease;}
+  [data-4col] > div:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,.1);}
+  [data-bchips] > div{transition:transform .22s ease,background .22s ease;}
+  [data-bchips] > div:hover{transform:translateY(-3px);background:#e8ecf0 !important;}
+  [data-services] button{transition:transform .2s ease,box-shadow .2s ease;}
+  [data-services] button:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(21,166,220,.18);}
+  /* ── Scroll margins ── */
+  #about,#companies,#corporate,#blog,#contact{scroll-margin-top:90px;}
 </style>
 </helmet>
 
@@ -75,9 +84,11 @@
         <div class="nav-has-dd" style="height:82px;display:flex;align-items:center;">
           <span style="color:rgba(255,255,255,.85);font-weight:600;font-size:13.5px;padding:0 18px;height:82px;display:inline-flex;align-items:center;gap:6px;cursor:default;user-select:none;">Corporate <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 4 6 8 10 4"/></svg></span>
           <div class="nav-dd">
-            <sc-for list="{{ subsidiaries }}" as="co" hint-placeholder-count="5">
-              <a href="#companies" onClick="{{ co.pick }}" style="display:block;text-decoration:none;padding:12px 16px;color:rgba(255,255,255,.82);font-weight:600;font-size:13.5px;" style-hover="background:#1a2535;color:var(--orange);">{{ co.name }}</a>
-            </sc-for>
+            <a href="./vintron-trading.dc.html" style="display:block;text-decoration:none;padding:12px 16px;color:rgba(255,255,255,.82);font-weight:600;font-size:13.5px;" style-hover="background:#1a2535;color:var(--orange);">Vintron General Trading LLC</a>
+            <a href="./vienna-steel.dc.html" style="display:block;text-decoration:none;padding:12px 16px;color:rgba(255,255,255,.82);font-weight:600;font-size:13.5px;" style-hover="background:#1a2535;color:var(--orange);">Vienna Turning Eng. &amp; Steel</a>
+            <a href="./linu-tech.dc.html" style="display:block;text-decoration:none;padding:12px 16px;color:rgba(255,255,255,.82);font-weight:600;font-size:13.5px;" style-hover="background:#1a2535;color:var(--orange);">Linu Tech Cont.</a>
+            <a href="./vintron-technical.dc.html" style="display:block;text-decoration:none;padding:12px 16px;color:rgba(255,255,255,.82);font-weight:600;font-size:13.5px;" style-hover="background:#1a2535;color:var(--orange);">Vintron Technical Services</a>
+            <a href="./venus-auto.dc.html" style="display:block;text-decoration:none;padding:12px 16px;color:rgba(255,255,255,.82);font-weight:600;font-size:13.5px;" style-hover="background:#1a2535;color:var(--orange);">Venus Auto Maintenance</a>
           </div>
         </div>
 
@@ -123,9 +134,11 @@
         <a href="#home" onClick="{{ closeMenu }}" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;padding:12px 6px;border-bottom:1px solid #1a212b;">Home</a>
         <a href="#about" onClick="{{ closeMenu }}" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;padding:12px 6px;border-bottom:1px solid #1a212b;">About Us</a>
         <div style="padding:12px 6px 6px;font-weight:700;color:var(--orange);font-size:12px;letter-spacing:.12em;text-transform:uppercase;">Corporate</div>
-        <sc-for list="{{ subsidiaries }}" as="co" hint-placeholder-count="5">
-          <a href="#companies" onClick="{{ co.pick }}" style="text-decoration:none;color:rgba(255,255,255,.6);font-weight:600;font-size:14px;padding:9px 16px;">— {{ co.name }}</a>
-        </sc-for>
+        <a href="./vintron-trading.dc.html" style="text-decoration:none;color:rgba(255,255,255,.6);font-weight:600;font-size:14px;padding:9px 16px;">— Vintron General Trading LLC</a>
+        <a href="./vienna-steel.dc.html" style="text-decoration:none;color:rgba(255,255,255,.6);font-weight:600;font-size:14px;padding:9px 16px;">— Vienna Turning Eng. &amp; Steel</a>
+        <a href="./linu-tech.dc.html" style="text-decoration:none;color:rgba(255,255,255,.6);font-weight:600;font-size:14px;padding:9px 16px;">— Linu Tech Cont.</a>
+        <a href="./vintron-technical.dc.html" style="text-decoration:none;color:rgba(255,255,255,.6);font-weight:600;font-size:14px;padding:9px 16px;">— Vintron Technical Services</a>
+        <a href="./venus-auto.dc.html" style="text-decoration:none;color:rgba(255,255,255,.6);font-weight:600;font-size:14px;padding:9px 16px;">— Venus Auto Maintenance</a>
         <a href="#blog" onClick="{{ closeMenu }}" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;padding:12px 6px;border-top:1px solid #1a212b;border-bottom:1px solid #1a212b;">Blog</a>
         <a href="#contact" onClick="{{ closeMenu }}" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;padding:12px 6px;">Contact</a>
         <a href="#contact" onClick="{{ closeMenu }}" style="text-decoration:none;background:var(--orange);color:#fff;font-weight:700;text-align:center;padding:13px;border-radius:var(--radius);margin-top:10px;">GET IN TOUCH ↗</a>
@@ -195,13 +208,13 @@
         </div>
         <div style="margin-top:16px;">
           <div style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:18px;">Vinod Kumar Nambiar</div>
-          <div style="color:var(--muted);font-size:13px;">Chairman &amp; Managing Director, Vintron-World Group</div>
+          <div style="color:var(--muted);font-size:13px;">Chairman &amp; Managing Director, Vintron Group</div>
         </div>
       </div>
       <div>
         <div style="color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px;">About Us <span style="color:var(--orange);">↘</span></div>
         <h2 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:clamp(28px,3.6vw,44px);line-height:1.08;letter-spacing:-.01em;margin:0 0 20px;">We deliver reliable solutions that power your business growth</h2>
-        <p style="font-size:16px;line-height:1.8;margin:0 0 22px;max-width:58ch;">Vintron-World Group of Companies is a professionally managed Sharjah-based holding group. Built on its initial strength in general trading, the group has grown over 22+ years into a diversified, multi-disciplinary organisation delivering quality across five sectors in the UAE and wider GCC.</p>
+        <p style="font-size:16px;line-height:1.8;margin:0 0 22px;max-width:58ch;">Vintron Group of Companies is a professionally managed Sharjah-based holding group. Built on its initial strength in general trading, the group has grown over 22+ years into a diversified, multi-disciplinary organisation delivering quality across five sectors in the UAE and wider GCC.</p>
         <div style="display:flex;flex-direction:column;gap:13px;margin-bottom:28px;">
           <div style="display:flex;align-items:flex-start;gap:11px;"><span style="color:var(--orange);flex:none;margin-top:2px;">➜</span><span style="color:var(--ink);font-weight:600;font-size:15px;">Supplying high-quality products across multiple industries</span></div>
           <div style="display:flex;align-items:flex-start;gap:11px;"><span style="color:var(--orange);flex:none;margin-top:2px;">➜</span><span style="color:var(--ink);font-weight:600;font-size:15px;">Partnering with trusted international manufacturers</span></div>
@@ -234,7 +247,7 @@
         <h2 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:clamp(28px,3.8vw,46px);line-height:1.08;letter-spacing:-.01em;margin:0 auto;max-width:18ch;">Five companies. One trusted group.</h2>
       </div>
       <div data-services style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:clamp(24px,4vw,52px);align-items:start;">
-        <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;flex-direction:column;gap:16px;">
           <sc-for list="{{ subsidiaries }}" as="co" hint-placeholder-count="5">
             <button onClick="{{ co.select }}" style="{{ co.tabStyle }}">
               <span style="font-weight:700;font-size:15.5px;text-align:left;">{{ co.name }}</span>
@@ -252,7 +265,7 @@
             <div style="color:var(--accent);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px;">{{ activeService.sector }}</div>
             <h3 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:26px;margin:0 0 14px;letter-spacing:-.01em;">{{ activeService.name }}</h3>
             <p style="font-size:15px;line-height:1.8;margin:0 0 22px;">{{ activeService.desc }}</p>
-            <a href="#contact" style="text-decoration:none;background:var(--dark);color:#fff;font-weight:700;font-size:13px;padding:13px 24px;border-radius:var(--radius);display:inline-flex;align-items:center;gap:9px;" style-hover="background:var(--accent);">More Details <span>↗</span></a>
+            <a href="{{ activeService.url }}" style="text-decoration:none;background:var(--dark);color:#fff;font-weight:700;font-size:13px;padding:13px 24px;border-radius:var(--radius);display:inline-flex;align-items:center;gap:9px;" style-hover="background:var(--accent);">More Details <span>↗</span></a>
           </div>
         </div>
       </div>
@@ -614,7 +627,7 @@
       </div>
 
       <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:22px 0;border-top:1px solid #1a212b;font-size:13px;">
-        <div>© 2026 Vintron-World Group · All rights reserved</div>
+        <div>© 2026 Vintron Group · All rights reserved</div>
         <div style="display:flex;gap:22px;flex-wrap:wrap;">
           <a href="#contact" style="text-decoration:none;" style-hover="color:var(--accent);">Terms &amp; Conditions</a>
           <a href="#contact" style="text-decoration:none;" style-hover="color:var(--accent);">Privacy Policy</a>
@@ -624,6 +637,14 @@
     </div>
   </footer>
 
+  <!-- WhatsApp floating button -->
+  <a href="https://wa.me/97142676367" target="_blank" rel="noopener" style="position:fixed;right:22px;bottom:134px;z-index:900;width:48px;height:48px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,.35);text-decoration:none;" title="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+  </a>
+  <!-- Call floating button -->
+  <a href="tel:+97142676367" style="position:fixed;right:22px;bottom:78px;z-index:900;width:48px;height:48px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(242,106,33,.35);text-decoration:none;" title="Call Us">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.23h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+  </a>
   <button onClick="{{ scrollTop }}" style="position:fixed;right:22px;bottom:22px;z-index:900;width:48px;height:48px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;color:#fff;font-size:20px;box-shadow:0 8px 24px rgba(13,30,50,.25);" style-hover="filter:brightness(.92);">↑</button>
 
 </div>
@@ -642,11 +663,11 @@ class Component extends DCLogic {
   };
 
   subs = [
-    { name: 'Vintron General Trading LLC', sector: 'General Trading & Safety Equipment', num: '01', desc: 'Supplying high-quality electrical accessories, plumbing materials, safety equipment, educational trainers and auto maintenance products to clients across the UAE and GCC.' },
-    { name: 'Vienna Turning Eng. & Steel', sector: 'Steel Fabrication & Machining', num: '02', desc: 'Precision steel fabrication and CNC machining services in Sharjah, delivering dependable metal works for the UAE construction and industrial sectors.' },
-    { name: 'Linu Tech Cont.', sector: 'Electrical & Technical Contracting', num: '03', desc: 'Licensed electrical and MEP contracting across Sharjah and the wider UAE, built on engineering precision, safety and on-time delivery.' },
-    { name: 'Vintron Technical Services', sector: 'Technical & Maintenance Services', num: '04', desc: 'Comprehensive technical and maintenance services that keep UAE facilities, equipment and operations running at peak performance.' },
-    { name: 'Venus Auto Maintenance', sector: 'Automotive Services', num: '05', desc: 'Complete vehicle maintenance and auto services in Sharjah, engineered for the demands of UAE roads and summer conditions.' }
+    { name: 'Vintron General Trading LLC', sector: 'General Trading & Safety Equipment', num: '01', url: './vintron-trading.dc.html', desc: 'Supplying high-quality electrical accessories, plumbing materials, safety equipment, educational trainers and auto maintenance products to clients across the UAE and GCC.' },
+    { name: 'Vienna Turning Eng. & Steel', sector: 'Steel Fabrication & Machining', num: '02', url: './vienna-steel.dc.html', desc: 'Precision steel fabrication and CNC machining services in Sharjah, delivering dependable metal works for the UAE construction and industrial sectors.' },
+    { name: 'Linu Tech Cont.', sector: 'Electrical & Technical Contracting', num: '03', url: './linu-tech.dc.html', desc: 'Licensed electrical and MEP contracting across Sharjah and the wider UAE, built on engineering precision, safety and on-time delivery.' },
+    { name: 'Vintron Technical Services', sector: 'Technical & Maintenance Services', num: '04', url: './vintron-technical.dc.html', desc: 'Comprehensive technical and maintenance services that keep UAE facilities, equipment and operations running at peak performance.' },
+    { name: 'Venus Auto Maintenance', sector: 'Automotive Services', num: '05', url: './venus-auto.dc.html', desc: 'Complete vehicle maintenance and auto services in Sharjah, engineered for the demands of UAE roads and summer conditions.' }
   ];
 
   tlist = [
@@ -744,7 +765,7 @@ class Component extends DCLogic {
     });
 
     const as = this.subs[this.state.activeService];
-    const activeService = { name: as.name, sector: as.sector, desc: as.desc, num: as.num };
+    const activeService = { name: as.name, sector: as.sector, desc: as.desc, num: as.num, url: as.url };
 
     const testimonials = this.tlist.map((t, i) => ({
       pick: () => this.setState({ activeT: i }),
