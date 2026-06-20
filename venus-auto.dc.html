@@ -64,7 +64,7 @@
 </style>
 </helmet>
 
-<div style="overflow-x:hidden;font-family:'Sora',sans-serif;color:var(--muted);">
+<div style="overflow-x:clip;font-family:'Sora',sans-serif;color:var(--muted);">
 
   <!-- ============ HEADER / NAV ============ -->
   <header style="position:sticky;top:0;z-index:1000;background:#0c1622;box-shadow:0 2px 16px rgba(0,0,0,.4);">
@@ -117,7 +117,7 @@
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </button>
         <!-- Grid icon -->
-        <button style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.55);padding:0 20px;display:flex;align-items:center;justify-content:center;height:82px;border-left:1px solid rgba(255,255,255,.08);">
+        <button id="vw-grid-btn" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.55);padding:0 20px;display:flex;align-items:center;justify-content:center;height:82px;border-left:1px solid rgba(255,255,255,.08);">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="5" cy="5" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="5" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="5" r="1.5" fill="currentColor" stroke="none"/><circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="5" cy="19" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="19" r="1.5" fill="currentColor" stroke="none"/></svg>
         </button>
       </div>
@@ -477,7 +477,76 @@
   <!-- Scroll to top -->
   <button onclick="window.scrollTo({top:0,behavior:'smooth'})" style="position:fixed;right:22px;bottom:22px;z-index:900;width:48px;height:48px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;color:#fff;font-size:20px;box-shadow:0 8px 24px rgba(13,30,50,.25);">↑</button>
 
+  <!-- ============ GRID SIDE PANEL ============ -->
+  <div id="vw-gp-ov" onclick="vwClosePanel()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:1200;"></div>
+  <div id="vw-gp" style="position:fixed;top:0;right:0;width:min(400px,92vw);height:100%;background:#fff;z-index:1300;overflow-y:auto;transform:translateX(100%);transition:transform .38s cubic-bezier(.22,.61,.36,1);box-shadow:-10px 0 60px rgba(0,0,0,.2);font-family:'Sora',sans-serif;">
+    <button id="vw-close-btn" style="position:absolute;top:16px;right:16px;width:38px;height:38px;border-radius:50%;border:1.5px solid #dde2e8;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#444;z-index:10;font-size:15px;">&#10005;</button>
+    <div style="padding:34px 26px 44px;">
+      <div style="display:flex;align-items:center;gap:14px;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid #eef1f4;">
+        <img src="./vintron-logo.png" alt="Vintron" style="width:48px;height:48px;object-fit:contain;flex:none;">
+        <div>
+          <div style="font-weight:800;font-size:18px;color:#171a1f;letter-spacing:.04em;line-height:1.2;">VINTRON</div>
+          <div style="font-size:8.5px;letter-spacing:.22em;color:#f26a21;font-weight:700;margin-top:3px;">GROUP OF COMPANIES</div>
+        </div>
+      </div>
+      <p style="font-size:13.5px;line-height:1.82;color:#6a717a;margin:0 0 20px;">A Sharjah-based corporate holding group with 22+ years of experience, delivering quality across trading, steel engineering, electrical contracting, technical services and automotive.</p>
+      <div style="display:flex;flex-direction:column;gap:13px;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid #eef1f4;">
+        <div style="display:flex;align-items:center;gap:11px;font-size:13px;color:#5a5f66;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f26a21" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-3 2a11 11 0 005 5l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>
+          +971 4 2676367
+        </div>
+        <div style="display:flex;align-items:center;gap:11px;font-size:13px;color:#5a5f66;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f26a21" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+          P.O. Box 48325, Sharjah, UAE
+        </div>
+        <div style="display:flex;align-items:center;gap:11px;font-size:13px;color:#5a5f66;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f26a21" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          support@vintron.ae
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid #eef1f4;">
+        <a href="#" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #dde2e8;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#555;font-size:13px;font-weight:800;">X</a>
+        <a href="#" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #dde2e8;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#555;font-size:11px;font-weight:800;">IG</a>
+        <a href="#" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #dde2e8;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#555;font-size:14px;font-weight:800;">f</a>
+        <a href="#" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #dde2e8;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#555;font-size:11px;font-weight:800;">in</a>
+      </div>
+      <div style="font-weight:800;font-size:11px;color:#171a1f;text-transform:uppercase;letter-spacing:.14em;margin-bottom:16px;">Our Companies</div>
+      <div>
+        <a href="./vintron-trading.dc.html" style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #eef1f4;text-decoration:none;align-items:center;">
+          <div style="width:66px;height:50px;background:#0c1622;display:flex;align-items:center;justify-content:center;flex:none;"><span style="font-weight:900;font-size:22px;color:#f26a21;font-family:'Sora',sans-serif;">01</span></div>
+          <div><div style="font-weight:700;color:#171a1f;font-size:13px;line-height:1.35;">Vintron General Trading LLC</div><div style="font-size:11.5px;color:#8a929c;margin-top:4px;">General Trading &amp; Safety Equipment</div></div>
+        </a>
+        <a href="./vienna-steel.dc.html" style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #eef1f4;text-decoration:none;align-items:center;">
+          <div style="width:66px;height:50px;background:#0c1622;display:flex;align-items:center;justify-content:center;flex:none;"><span style="font-weight:900;font-size:22px;color:#15a6dc;font-family:'Sora',sans-serif;">02</span></div>
+          <div><div style="font-weight:700;color:#171a1f;font-size:13px;line-height:1.35;">Vienna Turning Eng. &amp; Steel</div><div style="font-size:11.5px;color:#8a929c;margin-top:4px;">Steel Fabrication &amp; CNC Machining</div></div>
+        </a>
+        <a href="./linu-tech.dc.html" style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #eef1f4;text-decoration:none;align-items:center;">
+          <div style="width:66px;height:50px;background:#0c1622;display:flex;align-items:center;justify-content:center;flex:none;"><span style="font-weight:900;font-size:22px;color:#f26a21;font-family:'Sora',sans-serif;">03</span></div>
+          <div><div style="font-weight:700;color:#171a1f;font-size:13px;line-height:1.35;">Linu Tech Cont.</div><div style="font-size:11.5px;color:#8a929c;margin-top:4px;">Electrical &amp; MEP Contracting</div></div>
+        </a>
+        <a href="./vintron-technical.dc.html" style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #eef1f4;text-decoration:none;align-items:center;">
+          <div style="width:66px;height:50px;background:#0c1622;display:flex;align-items:center;justify-content:center;flex:none;"><span style="font-weight:900;font-size:22px;color:#15a6dc;font-family:'Sora',sans-serif;">04</span></div>
+          <div><div style="font-weight:700;color:#171a1f;font-size:13px;line-height:1.35;">Vintron Technical Services</div><div style="font-size:11.5px;color:#8a929c;margin-top:4px;">Technical &amp; Maintenance Services</div></div>
+        </a>
+        <a href="./venus-auto.dc.html" style="display:flex;gap:14px;padding:14px 0;text-decoration:none;align-items:center;">
+          <div style="width:66px;height:50px;background:#0c1622;display:flex;align-items:center;justify-content:center;flex:none;"><span style="font-weight:900;font-size:22px;color:#f26a21;font-family:'Sora',sans-serif;">05</span></div>
+          <div><div style="font-weight:700;color:#171a1f;font-size:13px;line-height:1.35;">Venus Auto Maintenance</div><div style="font-size:11.5px;color:#8a929c;margin-top:4px;">Automotive Services</div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+
 </div>
 </x-dc>
+<script>
+  function vwOpenPanel(){document.getElementById('vw-gp').style.transform='translateX(0)';document.getElementById('vw-gp-ov').style.display='block';document.body.style.overflow='hidden';}
+  function vwClosePanel(){document.getElementById('vw-gp').style.transform='translateX(100%)';document.getElementById('vw-gp-ov').style.display='none';document.body.style.overflow='';}
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')vwClosePanel();});
+  document.addEventListener('click',function(e){
+    if(e.target.closest('#vw-grid-btn')){vwOpenPanel();return;}
+    var ov=document.getElementById('vw-gp-ov');if(ov&&e.target===ov){vwClosePanel();return;}
+    if(e.target.closest('#vw-close-btn')){vwClosePanel();return;}
+  });
+</script>
 </body>
 </html>
