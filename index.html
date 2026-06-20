@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:'Sora',system-ui,sans-serif;color:#5a5f66;background:#fff;-webkit-font-smoothing:antialiased;}
+  :root{
+    --accent:#15a6dc; --orange:#f26a21; --ink:#171a1f; --muted:#6a717a;
+    --dark:#0e1217; --light:#f4f6f8; --radius:0px; --maxw:1240px;
+  }
+  a{color:inherit;}
+  input,textarea,select,button{font-family:inherit;}
+  @keyframes vwfade{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes vwfloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+
+  /* ── Hover dropdown ── */
+  .nav-has-dd{position:relative;}
+  .nav-dd{display:none;position:absolute;top:82px;left:-16px;background:#0b111a;box-shadow:0 16px 40px rgba(0,0,0,.55);padding:8px;min-width:268px;border-top:3px solid var(--orange);z-index:200;animation:vwfade .15s ease;}
+  .nav-has-dd:hover .nav-dd{display:block;}
+
+  @media (max-width:920px){
+    [data-desktop-nav]{display:none !important;}
+    [data-hamburger]{display:flex !important;}
+    [data-about]{grid-template-columns:1fr !important;}
+    [data-services]{grid-template-columns:1fr !important;}
+    [data-2col]{grid-template-columns:1fr !important;}
+    [data-benefits]{grid-template-columns:1fr !important;}
+    [data-test]{grid-template-columns:1fr !important;}
+    [data-4col]{grid-template-columns:1fr 1fr !important;}
+    [data-3col]{grid-template-columns:1fr !important;}
+    [data-foot]{grid-template-columns:1fr 1fr !important;}
+    [data-projects]{grid-template-columns:1fr 1fr !important;}
+  }
+  @media (max-width:560px){
+    [data-4col]{grid-template-columns:1fr !important;}
+    [data-foot]{grid-template-columns:1fr !important;}
+    [data-projects]{grid-template-columns:1fr !important;}
+    [data-bchips]{grid-template-columns:1fr !important;}
+  }
+  /* ── Card hover animations ── */
+  [data-4col] > div{transition:transform .28s ease,box-shadow .28s ease;}
+  [data-4col] > div:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,.1);}
+  [data-bchips] > div{transition:transform .22s ease,background .22s ease;}
+  [data-bchips] > div:hover{transform:translateY(-3px);background:#e8ecf0 !important;}
+  [data-services] button{transition:transform .2s ease,box-shadow .2s ease;}
+  [data-services] button:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(21,166,220,.18);}
+  /* ── Custom cursor ── */
+  html, body, a, button { cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='28'%20height='28'%20viewBox='0%200%2028%2028'%3E%3Cpath%20d='M5%203%20L5%2023%20L10%2018%20L13.5%2025%20L16.5%2023.5%20L13%2017%20L20%2017%20Z'%20fill='%23f26a21'%20stroke='%23171a1f'%20stroke-width='1.3'%20stroke-linejoin='round'/%3E%3C/svg%3E") 4 3, auto; }
+  /* ── Scroll margins ── */
+  #about,#companies,#corporate,#blog,#contact{scroll-margin-top:90px;}
+</style>
+</helmet>
+
+<div style="overflow-x:clip;font-family:'Sora',sans-serif;color:var(--muted);">
+
+  <!-- ============ HEADER / NAV ============ -->
+  <header style="position:sticky;top:0;z-index:1000;background:#0c1622;box-shadow:0 2px 16px rgba(0,0,0,.4);">
+    <div style="width:100%;height:82px;display:flex;align-items:center;justify-content:space-between;gap:0;">
+
+      <!-- Logo — darker left panel, exactly like CONSTRUZ -->
+      <a href="#home" onClick="{{ closeMenu }}" style="display:flex;align-items:center;gap:14px;text-decoration:none;flex:none;height:82px;padding:0 28px;background:#080c14;border-right:1px solid rgba(255,255,255,.07);">
+        <img src="./vintron-logo.png" alt="Vintron Logo" style="width:52px;height:52px;object-fit:contain;" />
+        <div style="line-height:1.2;">
+          <div style="font-family:'Sora';font-weight:800;font-size:17px;color:#fff;letter-spacing:.02em;">VINTRON</div>
+          <div style="font-size:8.5px;letter-spacing:.24em;color:var(--orange);font-weight:600;">GROUP OF COMPANIES</div>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav data-desktop-nav style="display:flex;align-items:center;justify-content:center;gap:0;height:82px;padding:0 20px;flex:1;">
+        <a href="#home" onClick="{{ closeMenu }}" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;font-size:13.5px;padding:0 18px;height:82px;display:inline-flex;align-items:center;" style-hover="color:#fff;background:rgba(255,255,255,.04);">Home</a>
+        <a href="#about" onClick="{{ closeMenu }}" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;font-size:13.5px;padding:0 18px;height:82px;display:inline-flex;align-items:center;" style-hover="color:#fff;background:rgba(255,255,255,.04);">About Us</a>
+
+        <!-- Corporate dropdown — CSS hover -->
+        <div class="nav-has-dd" style="height:82px;display:flex;align-items:center;">
+          <span style="color:rgba(255,255,255,.85);font-weight:600;font-size:13.5px;padding:0 18px;height:82px;display:inline-flex;align-items:center;gap:6px;cursor:default;user-select:none;">Corporate <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 4 6 8 10 4"/></svg></span>
+          <div class="nav-dd">
+            <a href="./vintron-trading.dc.html" style="display:block;text-decoration:none;padding:12px 16px;color:rgba(255,255,255,.82);font-weight:600;font-size:13.5px;" style-hover="background:#1a2535;color:var(--orange);">Vintron General Trading LLC</a>
+            <a href="./vienna-steel.dc.html" style="display:block;text-decoration:none;padding:12px 16px;color:rgba(255,255,255,.82);font-weight:600;font-size:13.5px;" style-hover="background:#1a2535;color:var(--orange);">Vienna Turning Eng. &amp; Steel</a>
+            <a href="./linu-tech.dc.html" style="display:block;text-decoration:none;padding:12px 16px;color:rgba(255,255,255,.82);font-weight:600;font-size:13.5px;" style-hover="background:#1a2535;color:var(--orange);">Linu Tech Cont.</a>
+            <a href="./vintron-technical.dc.html" style="display:block;text-decoration:none;padding:12px 16px;color:rgba(255,255,255,.82);font-weight:600;font-size:13.5px;" style-hover="background:#1a2535;color:var(--orange);">Vintron Technical Services</a>
+            <a href="./venus-auto.dc.html" style="display:block;text-decoration:none;padding:12px 16px;color:rgba(255,255,255,.82);font-weight:600;font-size:13.5px;" style-hover="background:#1a2535;color:var(--orange);">Venus Auto Maintenance</a>
+          </div>
+        </div>
+
+        <a href="#blog" onClick="{{ closeMenu }}" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;font-size:13.5px;padding:0 18px;height:82px;display:inline-flex;align-items:center;" style-hover="color:#fff;background:rgba(255,255,255,.04);">Blog</a>
+        <a href="#contact" onClick="{{ closeMenu }}" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;font-size:13.5px;padding:0 18px;height:82px;display:inline-flex;align-items:center;" style-hover="color:#fff;background:rgba(255,255,255,.04);">Contact</a>
+      </nav>
+
+      <!-- Right: Phone + CTA + Icons -->
+      <div data-desktop-nav style="display:flex;align-items:center;gap:0;flex:none;height:82px;">
+        <!-- Phone block -->
+        <div style="display:flex;align-items:center;gap:13px;padding:0 24px;border-right:1px solid rgba(255,255,255,.08);height:82px;">
+          <div style="width:44px;height:44px;background:var(--orange);display:flex;align-items:center;justify-content:center;flex:none;">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-3 2a11 11 0 005 5l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>
+          </div>
+          <div style="line-height:1.3;">
+            <div style="font-size:10px;color:rgba(255,255,255,.48);font-weight:500;letter-spacing:.04em;">Call us any time</div>
+            <div style="font-family:'Sora';font-weight:700;color:#fff;font-size:15px;letter-spacing:-.01em;">+971 4 2676367</div>
+          </div>
+        </div>
+        <!-- GET IN TOUCH button -->
+        <a href="#contact" onClick="{{ closeMenu }}" style="text-decoration:none;background:var(--orange);color:#fff;font-weight:700;font-size:12.5px;letter-spacing:.08em;padding:0 28px;height:44px;display:inline-flex;align-items:center;gap:9px;white-space:nowrap;margin:0 20px;" style-hover="filter:brightness(.9);">GET IN TOUCH <svg viewBox="0 0 20 20" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="17" x2="17" y2="3"/><polyline points="7 3 17 3 17 13"/></svg></a>
+        <!-- Search icon -->
+        <button style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.55);padding:0 20px;display:flex;align-items:center;justify-content:center;height:82px;border-left:1px solid rgba(255,255,255,.08);" style-hover="color:#fff;background:rgba(255,255,255,.04);">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <!-- Grid icon -->
+        <button id="vw-grid-btn" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.55);padding:0 20px;display:flex;align-items:center;justify-content:center;height:82px;border-left:1px solid rgba(255,255,255,.08);" style-hover="color:#fff;background:rgba(255,255,255,.04);">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="5" cy="5" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="5" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="5" r="1.5" fill="currentColor" stroke="none"/><circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="5" cy="19" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="19" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </button>
+      </div>
+
+      <!-- Hamburger -->
+      <button data-hamburger onClick="{{ toggleMenu }}" style="display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:12px 16px;">
+        <span style="width:24px;height:2px;background:#fff;display:block;"></span>
+        <span style="width:24px;height:2px;background:#fff;display:block;"></span>
+        <span style="width:24px;height:2px;background:#fff;display:block;"></span>
+      </button>
+    </div>
+
+    <!-- mobile panel -->
+    <sc-if value="{{ mobileOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#0e1217;border-top:1px solid #1a212b;padding:14px 24px 22px;display:flex;flex-direction:column;gap:4px;animation:vwfade .2s ease;">
+        <a href="#home" onClick="{{ closeMenu }}" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;padding:12px 6px;border-bottom:1px solid #1a212b;">Home</a>
+        <a href="#about" onClick="{{ closeMenu }}" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;padding:12px 6px;border-bottom:1px solid #1a212b;">About Us</a>
+        <div style="padding:12px 6px 6px;font-weight:700;color:var(--orange);font-size:12px;letter-spacing:.12em;text-transform:uppercase;">Corporate</div>
+        <a href="./vintron-trading.dc.html" style="text-decoration:none;color:rgba(255,255,255,.6);font-weight:600;font-size:14px;padding:9px 16px;">— Vintron General Trading LLC</a>
+        <a href="./vienna-steel.dc.html" style="text-decoration:none;color:rgba(255,255,255,.6);font-weight:600;font-size:14px;padding:9px 16px;">— Vienna Turning Eng. &amp; Steel</a>
+        <a href="./linu-tech.dc.html" style="text-decoration:none;color:rgba(255,255,255,.6);font-weight:600;font-size:14px;padding:9px 16px;">— Linu Tech Cont.</a>
+        <a href="./vintron-technical.dc.html" style="text-decoration:none;color:rgba(255,255,255,.6);font-weight:600;font-size:14px;padding:9px 16px;">— Vintron Technical Services</a>
+        <a href="./venus-auto.dc.html" style="text-decoration:none;color:rgba(255,255,255,.6);font-weight:600;font-size:14px;padding:9px 16px;">— Venus Auto Maintenance</a>
+        <a href="#blog" onClick="{{ closeMenu }}" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;padding:12px 6px;border-top:1px solid #1a212b;border-bottom:1px solid #1a212b;">Blog</a>
+        <a href="#contact" onClick="{{ closeMenu }}" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;padding:12px 6px;">Contact</a>
+        <a href="#contact" onClick="{{ closeMenu }}" style="text-decoration:none;background:var(--orange);color:#fff;font-weight:700;text-align:center;padding:13px;border-radius:var(--radius);margin-top:10px;">GET IN TOUCH ↗</a>
+      </div>
+    </sc-if>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section id="home" style="scroll-margin-top:90px;position:relative;background:linear-gradient(105deg,#070b11 0%,#0c1622 45%,#0f1c2b 70%,#0c1622 100%);overflow:hidden;min-height:clamp(520px,70vh,760px);display:flex;align-items:center;">
+    <!-- Grid texture overlay -->
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.03) 0 1px,transparent 1px 28px);pointer-events:none;"></div>
+    <!-- Right fade vignette -->
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,11,17,.98) 0%,rgba(7,11,17,.88) 35%,rgba(7,11,17,.55) 65%,rgba(7,11,17,.2) 100%);pointer-events:none;"></div>
+    <!-- Bottom orange skew bar -->
+    <div style="position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--orange);"></div>
+
+    <div style="position:relative;max-width:var(--maxw);margin:0 auto;width:100%;padding:clamp(80px,9vw,130px) 24px clamp(100px,11vw,150px);">
+
+      <!-- Star ratings — stacked CONSTRUZ style -->
+      <div style="display:flex;align-items:center;gap:0;flex-wrap:wrap;margin-bottom:32px;">
+        <!-- Google -->
+        <div style="display:flex;flex-direction:column;gap:7px;padding-right:28px;border-right:1px solid rgba(255,255,255,.18);">
+          <div style="color:#ffc24a;font-size:18px;letter-spacing:4px;line-height:1;">★★★★★</div>
+          <div style="display:flex;align-items:center;gap:7px;">
+            <span style="background:#fff;color:#4285f4;font-weight:900;font-size:9px;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex:none;">G</span>
+            <span style="color:rgba(255,255,255,.65);font-size:11px;font-weight:700;letter-spacing:.1em;">4.5 RATING</span>
+          </div>
+        </div>
+        <!-- Facebook -->
+        <div style="display:flex;flex-direction:column;gap:7px;padding:0 28px;border-right:1px solid rgba(255,255,255,.18);">
+          <div style="color:#ffc24a;font-size:18px;letter-spacing:4px;line-height:1;">★★★★★</div>
+          <div style="display:flex;align-items:center;gap:7px;">
+            <span style="background:#1877f2;color:#fff;font-weight:900;font-size:10px;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex:none;">f</span>
+            <span style="color:rgba(255,255,255,.65);font-size:11px;font-weight:700;letter-spacing:.1em;">5.0 RATING</span>
+          </div>
+        </div>
+        <!-- Vintron -->
+        <div style="display:flex;flex-direction:column;gap:7px;padding-left:28px;">
+          <div style="color:#ffc24a;font-size:18px;letter-spacing:4px;line-height:1;">★★★★★</div>
+          <div style="display:flex;align-items:center;gap:7px;">
+            <span style="background:var(--orange);color:#fff;font-weight:900;font-size:9px;width:17px;height:17px;border-radius:0;display:inline-flex;align-items:center;justify-content:center;flex:none;">V</span>
+            <span style="color:rgba(255,255,255,.65);font-size:11px;font-weight:700;letter-spacing:.1em;">A+ RATING</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Headline -->
+      <h1 style="font-family:'Sora';font-weight:800;color:#fff;font-size:clamp(28px,3.6vw,48px);line-height:1.1;letter-spacing:-.02em;margin:0 0 20px;max-width:18ch;">Building the UAE's Future. <span style="color:var(--orange);">Five Companies.</span> One Vision.</h1>
+
+      <!-- Subtitle -->
+      <p style="color:rgba(255,255,255,.62);font-size:clamp(14px,1.35vw,17px);line-height:1.85;max-width:54ch;margin:0 0 38px;">Vintron Group is a Sharjah-based corporate group with 22+ years of experience, delivering quality across trading, steel engineering, electrical contracting, technical services, and automotive maintenance.</p>
+
+      <!-- CTA -->
+      <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;">
+        <a href="#contact" style="text-decoration:none;background:var(--orange);color:#fff;font-weight:700;font-size:13px;letter-spacing:.07em;padding:17px 32px;border-radius:var(--radius);display:inline-flex;align-items:center;gap:10px;text-transform:uppercase;" style-hover="filter:brightness(.92);">Request a Free Quote <svg viewBox="0 0 20 20" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="17" x2="17" y2="3"/><polyline points="7 3 17 3 17 13"/></svg></a>
+        <a href="#companies" style="text-decoration:none;background:transparent;border:1.5px solid rgba(255,255,255,.3);color:#fff;font-weight:700;font-size:13px;letter-spacing:.07em;padding:17px 32px;border-radius:var(--radius);display:inline-flex;align-items:center;gap:10px;text-transform:uppercase;" style-hover="border-color:rgba(255,255,255,.7);background:rgba(255,255,255,.06);">Explore Our Companies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" style="scroll-margin-top:90px;background:#fff;padding:clamp(60px,8vw,108px) 24px;">
+    <div data-about style="max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:0.85fr 1fr;gap:clamp(36px,6vw,80px);align-items:center;">
+      <div>
+        <div style="position:relative;overflow:hidden;aspect-ratio:4/5;">
+          <img src="./vinod.webp" alt="Vinod Kumar Nambiar" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;" />
+        </div>
+        <div style="margin-top:16px;">
+          <div style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:18px;">Vinod Kumar Nambiar</div>
+          <div style="color:var(--muted);font-size:13px;">Chairman &amp; Managing Director, Vintron Group</div>
+        </div>
+      </div>
+      <div>
+        <div style="color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px;">About Us <span style="color:var(--orange);">↘</span></div>
+        <h2 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:clamp(28px,3.6vw,44px);line-height:1.08;letter-spacing:-.01em;margin:0 0 20px;">We deliver reliable solutions that power your business growth</h2>
+        <p style="font-size:16px;line-height:1.8;margin:0 0 22px;max-width:58ch;">Vintron Group of Companies is a professionally managed Sharjah-based holding group. Built on its initial strength in general trading, the group has grown over 22+ years into a diversified, multi-disciplinary organisation delivering quality across five sectors in the UAE and wider GCC.</p>
+        <div style="display:flex;flex-direction:column;gap:13px;margin-bottom:28px;">
+          <div style="display:flex;align-items:flex-start;gap:11px;"><span style="color:var(--orange);flex:none;margin-top:2px;">➜</span><span style="color:var(--ink);font-weight:600;font-size:15px;">Supplying high-quality products across multiple industries</span></div>
+          <div style="display:flex;align-items:flex-start;gap:11px;"><span style="color:var(--orange);flex:none;margin-top:2px;">➜</span><span style="color:var(--ink);font-weight:600;font-size:15px;">Partnering with trusted international manufacturers</span></div>
+          <div style="display:flex;align-items:flex-start;gap:11px;"><span style="color:var(--orange);flex:none;margin-top:2px;">➜</span><span style="color:var(--ink);font-weight:600;font-size:15px;">Delivering reliable solutions with a focus on customer satisfaction</span></div>
+        </div>
+        <div data-2col style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:520px;margin-bottom:30px;">
+          <div style="display:flex;align-items:center;gap:13px;">
+            <div style="width:46px;height:46px;border-radius:var(--radius);background:var(--accent);display:flex;align-items:center;justify-content:center;flex:none;">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-3 2a11 11 0 005 5l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>
+            </div>
+            <div><div style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:16px;">+971 4 2676367</div><div style="font-size:12px;">Need help?</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:13px;">
+            <div style="width:46px;height:46px;border-radius:var(--radius);background:var(--accent);display:flex;align-items:center;justify-content:center;flex:none;">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            </div>
+            <div><div style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:16px;">support@vintron.ae</div><div style="font-size:12px;">Mail us</div></div>
+          </div>
+        </div>
+        <a href="#companies" style="text-decoration:none;background:var(--accent);color:#fff;font-weight:700;font-size:14px;padding:14px 26px;border-radius:var(--radius);display:inline-flex;align-items:center;gap:9px;" style-hover="filter:brightness(.92);">View Our Companies <span>↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OUR COMPANIES / SERVICES ============ -->
+  <section id="companies" style="scroll-margin-top:90px;background:var(--light);padding:clamp(60px,8vw,104px) 24px;position:relative;">
+    <div style="max-width:var(--maxw);margin:0 auto;">
+      <div style="text-align:center;margin-bottom:48px;">
+        <div style="color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;">Our Companies <span style="color:var(--orange);">↘</span></div>
+        <h2 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:clamp(28px,3.8vw,46px);line-height:1.08;letter-spacing:-.01em;margin:0 auto;max-width:18ch;">Five companies. One trusted group.</h2>
+      </div>
+      <div data-services style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:clamp(24px,4vw,52px);align-items:start;">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <sc-for list="{{ subsidiaries }}" as="co" hint-placeholder-count="5">
+            <button onClick="{{ co.select }}" style="{{ co.tabStyle }}">
+              <span style="font-weight:700;font-size:15.5px;text-align:left;">{{ co.name }}</span>
+              <span style="font-size:13px;">↘</span>
+            </button>
+          </sc-for>
+        </div>
+        <div style="background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 18px 44px rgba(13,30,50,.08);">
+          <div style="position:relative;aspect-ratio:16/8;background:repeating-linear-gradient(135deg,#dfe5eb 0 16px,#d7dee5 16px 32px);display:flex;align-items:flex-end;justify-content:space-between;padding:22px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#8a929c;align-self:center;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">[ {{ activeService.sector }} ]</span>
+            <span style="font-family:'Sora';font-weight:700;color:var(--ink);font-size:14px;letter-spacing:.1em;background:#fff;padding:6px 14px;border-radius:0;">SERVICE</span>
+            <span style="font-family:'Sora';font-weight:900;color:var(--accent);font-size:40px;line-height:1;">{{ activeService.num }}</span>
+          </div>
+          <div style="padding:30px 32px 34px;">
+            <div style="color:var(--accent);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px;">{{ activeService.sector }}</div>
+            <h3 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:26px;margin:0 0 14px;letter-spacing:-.01em;">{{ activeService.name }}</h3>
+            <p style="font-size:15px;line-height:1.8;margin:0 0 22px;">{{ activeService.desc }}</p>
+            <a href="{{ activeService.url }}" style="text-decoration:none;background:var(--dark);color:#fff;font-weight:700;font-size:13px;padding:13px 24px;border-radius:var(--radius);display:inline-flex;align-items:center;gap:9px;" style-hover="background:var(--accent);">More Details <span>↗</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY / BENEFITS (Corporate) ============ -->
+  <section id="corporate" style="scroll-margin-top:90px;background:#fff;padding:clamp(60px,8vw,104px) 24px;">
+    <div data-benefits style="max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:0.95fr 1.05fr;gap:clamp(36px,6vw,72px);align-items:center;">
+      <div style="position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:5/5;background:repeating-linear-gradient(135deg,#e6ebf0 0 16px,#dfe5eb 16px 32px);display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:ui-monospace,monospace;font-size:12px;color:#9aa3ad;">[ team / site photo ]</span>
+      </div>
+      <div>
+        <div style="color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px;">Why Vintron <span style="color:var(--orange);">↗</span></div>
+        <h2 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:clamp(28px,3.6vw,44px);line-height:1.08;letter-spacing:-.01em;margin:0 0 16px;">Reasons clients choose &lsquo;Vintron&rsquo;</h2>
+        <p style="font-size:16px;line-height:1.8;margin:0 0 28px;max-width:54ch;">A single point of trust for procurement, engineering and services across the UAE &mdash; backed by 22+ years of delivery and a multi-disciplinary team that gets the job done.</p>
+        <div data-bchips style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:560px;">
+          <div style="display:flex;align-items:center;gap:13px;background:var(--light);border-radius:var(--radius);padding:16px 18px;">
+            <span style="color:var(--orange);font-size:20px;flex:none;">✓</span><span style="color:var(--ink);font-weight:700;font-size:14px;">Professional Engineers</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:13px;background:var(--light);border-radius:var(--radius);padding:16px 18px;">
+            <span style="color:var(--orange);font-size:20px;flex:none;">★</span><span style="color:var(--ink);font-weight:700;font-size:14px;">Award-Winning Group</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:13px;background:var(--light);border-radius:var(--radius);padding:16px 18px;">
+            <span style="color:var(--orange);font-size:20px;flex:none;">✓</span><span style="color:var(--ink);font-weight:700;font-size:14px;">Hassle-Free Service</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:13px;background:var(--light);border-radius:var(--radius);padding:16px 18px;">
+            <span style="color:var(--orange);font-size:20px;flex:none;">✓</span><span style="color:var(--ink);font-weight:700;font-size:14px;">Competitive Pricing</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:13px;background:var(--light);border-radius:var(--radius);padding:16px 18px;">
+            <span style="color:var(--orange);font-size:20px;flex:none;">★</span><span style="color:var(--ink);font-weight:700;font-size:14px;">22+ Years Experience</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:13px;background:var(--light);border-radius:var(--radius);padding:16px 18px;">
+            <span style="color:var(--orange);font-size:20px;flex:none;">✓</span><span style="color:var(--ink);font-weight:700;font-size:14px;">UAE &amp; GCC Coverage</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section style="background:var(--dark);position:relative;overflow:hidden;">
+    <div data-test style="max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;">
+      <div style="padding:clamp(48px,7vw,92px) clamp(24px,4vw,48px) clamp(48px,7vw,92px) 24px;">
+        <div style="color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:18px;">Testimonials <span style="color:var(--orange);">↘</span></div>
+        <h2 style="font-family:'Sora';font-weight:800;color:#fff;font-size:clamp(28px,3.6vw,44px);margin:0 0 36px;letter-spacing:-.01em;">What our clients say</h2>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+          <div style="width:54px;height:54px;border-radius:50%;background:repeating-linear-gradient(135deg,#2a3340 0 8px,#222b36 8px 16px);flex:none;"></div>
+          <div>
+            <div style="font-family:'Sora';font-weight:800;color:#fff;font-size:17px;">{{ activeT.name }}</div>
+            <div style="color:#8c97a4;font-size:13px;">{{ activeT.role }}</div>
+          </div>
+        </div>
+        <div style="color:#ffc24a;letter-spacing:2px;font-size:15px;margin-bottom:16px;">★★★★★</div>
+        <p style="color:#c7d1dc;font-size:clamp(16px,1.7vw,20px);line-height:1.7;margin:0 0 28px;max-width:46ch;">&ldquo;{{ activeT.quote }}&rdquo;</p>
+        <div style="display:flex;gap:9px;">
+          <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="3">
+            <button onClick="{{ t.pick }}" style="{{ t.dotStyle }}"></button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="position:relative;min-height:340px;background:repeating-linear-gradient(135deg,#1a2330 0 18px,#161e2a 18px 36px);display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:ui-monospace,monospace;font-size:12px;color:#566373;">[ client / project photo ]</span>
+        <div style="position:absolute;left:24px;top:50%;transform:translateY(-50%);background:#0a0e13;border-radius:0;padding:18px 14px;text-align:center;animation:vwfloat 5s ease-in-out infinite;box-shadow:0 16px 40px rgba(0,0,0,.4);">
+          <div style="font-family:'Sora';font-weight:900;color:var(--accent);font-size:26px;line-height:1;">2m+</div>
+          <div style="color:#9aa6b3;font-size:10px;letter-spacing:.06em;margin-top:4px;">Successful<br>partnerships</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AWARDS ============ -->
+  <section style="background:#0c1622;padding:clamp(60px,8vw,100px) 24px;position:relative;overflow:hidden;">
+    <!-- Subtle grid texture -->
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.025) 0 1px,transparent 1px 28px);pointer-events:none;"></div>
+    <!-- Faint large text watermark -->
+    <div style="position:absolute;right:-20px;bottom:-30px;font-family:'Sora';font-weight:900;font-size:clamp(120px,18vw,220px);color:rgba(255,255,255,.025);line-height:1;letter-spacing:-.04em;user-select:none;pointer-events:none;">AWARD</div>
+
+    <div style="max-width:var(--maxw);margin:0 auto;position:relative;">
+
+      <!-- Heading -->
+      <div style="display:flex;flex-direction:column;align-items:flex-start;margin-bottom:52px;">
+        <div style="color:var(--orange);font-weight:700;font-size:12px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:14px;">Our Recognition ↘</div>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;width:100%;gap:24px;flex-wrap:wrap;">
+          <h2 style="font-family:'Sora';font-weight:800;color:#fff;font-size:clamp(26px,3.4vw,42px);margin:0;letter-spacing:-.01em;">Awards &amp; Achievements</h2>
+          <p style="color:rgba(255,255,255,.5);font-size:14px;line-height:1.75;max-width:44ch;margin:0;text-align:right;">Recognised across the UAE &amp; GCC for excellence in trading, engineering, contracting, technical services, and automotive.</p>
+        </div>
+        <!-- Orange divider line -->
+        <div style="width:60px;height:3px;background:var(--orange);margin-top:20px;"></div>
+      </div>
+
+      <!-- Award cards -->
+      <div data-4col style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;">
+
+        <!-- Card 1 -->
+        <div style="background:#111d2a;padding:36px 28px 32px;display:flex;flex-direction:column;gap:0;position:relative;border-top:3px solid var(--orange);">
+          <!-- Year watermark -->
+          <div style="position:absolute;top:16px;right:20px;font-family:'Sora';font-weight:900;font-size:52px;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">2024</div>
+          <!-- Icon -->
+          <div style="width:48px;height:48px;background:var(--orange);display:flex;align-items:center;justify-content:center;margin-bottom:24px;flex:none;">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8 14l-4 7h16l-4-7"/><line x1="12" y1="14" x2="12" y2="21"/></svg>
+          </div>
+          <div style="font-family:'Sora';font-weight:800;color:#fff;font-size:15px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px;">Site of the Day</div>
+          <div style="color:rgba(255,255,255,.45);font-size:13px;margin-bottom:28px;flex:1;">Winner · 2024</div>
+          <div style="display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.15);padding:8px 16px;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.06em;text-transform:uppercase;width:fit-content;">
+            <span style="width:6px;height:6px;background:var(--orange);display:inline-block;flex:none;"></span>Design Award
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div style="background:#0e1822;padding:36px 28px 32px;display:flex;flex-direction:column;gap:0;position:relative;border-top:3px solid var(--accent);">
+          <div style="position:absolute;top:16px;right:20px;font-family:'Sora';font-weight:900;font-size:52px;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">2023</div>
+          <div style="width:48px;height:48px;background:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:24px;flex:none;">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+          </div>
+          <div style="font-family:'Sora';font-weight:800;color:#fff;font-size:15px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px;">Outstanding Advisor</div>
+          <div style="color:rgba(255,255,255,.45);font-size:13px;margin-bottom:28px;flex:1;">Winner · 2023</div>
+          <div style="display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.15);padding:8px 16px;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.06em;text-transform:uppercase;width:fit-content;">
+            <span style="width:6px;height:6px;background:var(--accent);display:inline-block;flex:none;"></span>GCC Award
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div style="background:#111d2a;padding:36px 28px 32px;display:flex;flex-direction:column;gap:0;position:relative;border-top:3px solid var(--orange);">
+          <div style="position:absolute;top:16px;right:20px;font-family:'Sora';font-weight:900;font-size:52px;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">2022</div>
+          <div style="width:48px;height:48px;background:var(--orange);display:flex;align-items:center;justify-content:center;margin-bottom:24px;flex:none;">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="10"/><path d="M4 10H2v2a4 4 0 004 4h12a4 4 0 004-4v-2h-2"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
+          </div>
+          <div style="font-family:'Sora';font-weight:800;color:#fff;font-size:15px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px;">Best Choice Company</div>
+          <div style="color:rgba(255,255,255,.45);font-size:13px;margin-bottom:28px;flex:1;">Winner · 2022</div>
+          <div style="display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.15);padding:8px 16px;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.06em;text-transform:uppercase;width:fit-content;">
+            <span style="width:6px;height:6px;background:var(--orange);display:inline-block;flex:none;"></span>Trade Award
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div style="background:#0e1822;padding:36px 28px 32px;display:flex;flex-direction:column;gap:0;position:relative;border-top:3px solid var(--accent);">
+          <div style="position:absolute;top:16px;right:20px;font-family:'Sora';font-weight:900;font-size:52px;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">2021</div>
+          <div style="width:48px;height:48px;background:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:24px;flex:none;">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div style="font-family:'Sora';font-weight:800;color:#fff;font-size:15px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px;">Best Consulting</div>
+          <div style="color:rgba(255,255,255,.45);font-size:13px;margin-bottom:28px;flex:1;">Winner · 2021</div>
+          <div style="display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.15);padding:8px 16px;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.06em;text-transform:uppercase;width:fit-content;">
+            <span style="width:6px;height:6px;background:var(--accent);display:inline-block;flex:none;"></span>Industry Award
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" style="scroll-margin-top:90px;background:var(--light);padding:clamp(60px,8vw,100px) 24px;">
+    <div style="max-width:var(--maxw);margin:0 auto;">
+      <div data-4col style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:40px;">
+        <div style="background:#fff;border-radius:var(--radius);padding:24px;box-shadow:0 8px 24px rgba(13,30,50,.05);">
+          <div style="width:44px;height:44px;border-radius:var(--radius);background:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:14px;"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-3 2a11 11 0 005 5l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></div>
+          <div style="font-weight:700;color:var(--ink);font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">Call Us</div>
+          <div style="font-size:14px;line-height:1.6;">+971 4 2676367</div>
+        </div>
+        <div style="background:#fff;border-radius:var(--radius);padding:24px;box-shadow:0 8px 24px rgba(13,30,50,.05);">
+          <div style="width:44px;height:44px;border-radius:var(--radius);background:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:14px;"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+          <div style="font-weight:700;color:var(--ink);font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">Email Us</div>
+          <div style="font-size:14px;line-height:1.6;">support@vintron.ae</div>
+        </div>
+        <div style="background:#fff;border-radius:var(--radius);padding:24px;box-shadow:0 8px 24px rgba(13,30,50,.05);">
+          <div style="width:44px;height:44px;border-radius:var(--radius);background:#25D366;display:flex;align-items:center;justify-content:center;margin-bottom:14px;"><svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1112 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5.1a6.5 6.5 0 01-1.9-1.2 7.2 7.2 0 01-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4c0-.1-.5-1.3-.7-1.7s-.4-.4-.5-.4h-.5a1 1 0 00-.7.3 3 3 0 00-.9 2.2 5.2 5.2 0 001.1 2.7 11.8 11.8 0 004.5 4 5 5 0 002.2.4 1.9 1.9 0 001.2-.9 1.5 1.5 0 00.1-.9c0-.1-.2-.2-.4-.3z"/></svg></div>
+          <div style="font-weight:700;color:var(--ink);font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">WhatsApp</div>
+          <div style="font-size:14px;line-height:1.6;">Chat with our team</div>
+        </div>
+        <div style="background:#fff;border-radius:var(--radius);padding:24px;box-shadow:0 8px 24px rgba(13,30,50,.05);">
+          <div style="width:44px;height:44px;border-radius:var(--radius);background:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:14px;"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <div style="font-weight:700;color:var(--ink);font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">Working Hours</div>
+          <div style="font-size:14px;line-height:1.6;">Sun&ndash;Thu · 09:00&ndash;18:00 GST</div>
+        </div>
+      </div>
+
+      <div style="background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 18px 50px rgba(13,30,50,.08);display:grid;grid-template-columns:1fr 1.2fr;" data-2col>
+        <div style="position:relative;min-height:320px;background:repeating-linear-gradient(135deg,#dfe5eb 0 16px,#d7dee5 16px 32px);display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:ui-monospace,monospace;font-size:12px;color:#8a929c;">[ Sharjah HQ photo ]</span>
+        </div>
+        <div style="padding:clamp(32px,4vw,52px);">
+          <div style="color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;">Get a Free Quote <span style="color:var(--orange);">↘</span></div>
+          <h2 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:clamp(26px,3vw,38px);margin:0 0 26px;letter-spacing:-.01em;">Let&rsquo;s connect</h2>
+          <form onSubmit="{{ submitForm }}">
+            <div data-2col style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+              <input required placeholder="Your Name" style="background:var(--light);border:1px solid #e6eaee;border-radius:var(--radius);padding:15px 16px;font-size:14px;color:var(--ink);outline:none;" />
+              <input required type="email" placeholder="Email Address" style="background:var(--light);border:1px solid #e6eaee;border-radius:var(--radius);padding:15px 16px;font-size:14px;color:var(--ink);outline:none;" />
+              <input placeholder="Phone Number" style="background:var(--light);border:1px solid #e6eaee;border-radius:var(--radius);padding:15px 16px;font-size:14px;color:var(--ink);outline:none;" />
+              <select style="background:var(--light);border:1px solid #e6eaee;border-radius:var(--radius);padding:15px 16px;font-size:14px;color:var(--muted);outline:none;">
+                <option>Your Inquiry</option>
+                <option>General Trading</option>
+                <option>Steel &amp; Engineering</option>
+                <option>Electrical Contracting</option>
+                <option>Technical Services</option>
+                <option>Auto Maintenance</option>
+              </select>
+            </div>
+            <textarea placeholder="Message..." rows="4" style="width:100%;background:var(--light);border:1px solid #e6eaee;border-radius:var(--radius);padding:15px 16px;font-size:14px;color:var(--ink);outline:none;resize:vertical;margin-bottom:16px;"></textarea>
+            <button type="submit" style="width:100%;background:var(--accent);color:#fff;font-weight:700;font-size:15px;padding:16px;border:none;border-radius:var(--radius);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;" style-hover="filter:brightness(.92);">{{ formMsg }} <span>↗</span></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section style="background:#fff;padding:clamp(60px,8vw,100px) 24px;">
+    <div style="max-width:var(--maxw);margin:0 auto;">
+      <div style="text-align:center;margin-bottom:44px;">
+        <div style="color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;">Our Work <span style="color:var(--orange);">↗</span></div>
+        <h2 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:clamp(28px,3.8vw,46px);margin:0;letter-spacing:-.01em;">Recently completed projects</h2>
+      </div>
+      <div data-projects style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+        <div style="grid-column:span 2;aspect-ratio:2/1;border-radius:var(--radius);background:repeating-linear-gradient(135deg,#e6ebf0 0 16px,#dfe5eb 16px 32px);display:flex;align-items:center;justify-content:center;"><span style="font-family:ui-monospace,monospace;font-size:11px;color:#9aa3ad;">[ project — steel fabrication ]</span></div>
+        <div style="aspect-ratio:1/1;border-radius:var(--radius);background:repeating-linear-gradient(135deg,#e6ebf0 0 16px,#dfe5eb 16px 32px);display:flex;align-items:center;justify-content:center;"><span style="font-family:ui-monospace,monospace;font-size:11px;color:#9aa3ad;">[ project — MEP ]</span></div>
+        <div style="aspect-ratio:1/1;border-radius:var(--radius);background:repeating-linear-gradient(135deg,#e6ebf0 0 16px,#dfe5eb 16px 32px);display:flex;align-items:center;justify-content:center;"><span style="font-family:ui-monospace,monospace;font-size:11px;color:#9aa3ad;">[ project — trading ]</span></div>
+        <div style="aspect-ratio:1/1;border-radius:var(--radius);background:repeating-linear-gradient(135deg,#e6ebf0 0 16px,#dfe5eb 16px 32px);display:flex;align-items:center;justify-content:center;"><span style="font-family:ui-monospace,monospace;font-size:11px;color:#9aa3ad;">[ project — technical ]</span></div>
+        <div style="aspect-ratio:1/1;border-radius:var(--radius);background:repeating-linear-gradient(135deg,#e6ebf0 0 16px,#dfe5eb 16px 32px);display:flex;align-items:center;justify-content:center;"><span style="font-family:ui-monospace,monospace;font-size:11px;color:#9aa3ad;">[ project — automotive ]</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STATS ============ -->
+  <section ref="{{ statsRef }}" style="background:#fff;padding:10px 24px clamp(50px,7vw,90px);">
+    <div data-4col style="max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center;border-top:1px solid #eef1f4;padding-top:clamp(40px,6vw,70px);">
+      <div><div style="font-family:'Sora';font-weight:900;font-size:clamp(48px,6vw,82px);line-height:1;color:transparent;-webkit-text-stroke:1.5px #c6cdd5;">{{ stat0 }}</div><div style="margin-top:10px;font-weight:600;color:var(--ink);font-size:15px;">Projects Completed</div></div>
+      <div><div style="font-family:'Sora';font-weight:900;font-size:clamp(48px,6vw,82px);line-height:1;color:transparent;-webkit-text-stroke:1.5px #c6cdd5;">{{ stat1 }}</div><div style="margin-top:10px;font-weight:600;color:var(--ink);font-size:15px;">Client Satisfaction</div></div>
+      <div><div style="font-family:'Sora';font-weight:900;font-size:clamp(48px,6vw,82px);line-height:1;color:transparent;-webkit-text-stroke:1.5px #c6cdd5;">{{ stat2 }}</div><div style="margin-top:10px;font-weight:600;color:var(--ink);font-size:15px;">Industry Awards</div></div>
+      <div><div style="font-family:'Sora';font-weight:900;font-size:clamp(48px,6vw,82px);line-height:1;color:transparent;-webkit-text-stroke:1.5px #c6cdd5;">{{ stat3 }}</div><div style="margin-top:10px;font-weight:600;color:var(--ink);font-size:15px;">Years in Business</div></div>
+    </div>
+  </section>
+
+  <!-- ============ CLIENT LOGOS ============ -->
+  <section style="background:var(--dark);padding:46px 24px;">
+    <div style="max-width:var(--maxw);margin:0 auto;">
+      <div style="text-align:center;color:#7c8794;font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:28px;">Trusted by partners across the UAE</div>
+      <div data-4col style="display:grid;grid-template-columns:repeat(5,1fr);gap:20px;align-items:center;justify-items:center;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.55;"><div style="width:34px;height:34px;border:2px solid #8b95a2;border-radius:0;"></div><div style="font-family:'Sora';font-weight:800;color:#aab4c0;font-size:13px;letter-spacing:.15em;">COMPANY</div></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.55;"><div style="width:34px;height:34px;border:2px solid #8b95a2;border-radius:50%;"></div><div style="font-family:'Sora';font-weight:800;color:#aab4c0;font-size:13px;letter-spacing:.15em;">COMPANY</div></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.55;"><div style="width:34px;height:34px;border:2px solid #8b95a2;transform:rotate(45deg);"></div><div style="font-family:'Sora';font-weight:800;color:#aab4c0;font-size:13px;letter-spacing:.15em;">COMPANY</div></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.55;"><div style="width:34px;height:34px;border:2px solid #8b95a2;border-radius:0;"></div><div style="font-family:'Sora';font-weight:800;color:#aab4c0;font-size:13px;letter-spacing:.15em;">COMPANY</div></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.55;"><div style="width:34px;height:34px;border:2px solid #8b95a2;border-radius:50%;"></div><div style="font-family:'Sora';font-weight:800;color:#aab4c0;font-size:13px;letter-spacing:.15em;">COMPANY</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BLOG ============ -->
+  <section id="blog" style="scroll-margin-top:90px;background:#fff;padding:clamp(60px,8vw,100px) 24px;">
+    <div style="max-width:var(--maxw);margin:0 auto;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:42px;">
+        <div>
+          <div style="color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;">News &amp; Insights <span style="color:var(--orange);">↗</span></div>
+          <h2 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:clamp(28px,3.8vw,46px);margin:0;letter-spacing:-.01em;">Latest news &amp; insights</h2>
+        </div>
+        <a href="#blog" style="text-decoration:none;background:var(--dark);color:#fff;font-weight:700;font-size:13px;padding:14px 24px;border-radius:var(--radius);display:inline-flex;align-items:center;gap:9px;" style-hover="background:var(--accent);">View All Posts <span>↗</span></a>
+      </div>
+      <div data-3col style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+        <article style="border:1px solid #eef1f4;border-radius:var(--radius);overflow:hidden;" style-hover="box-shadow:0 16px 40px rgba(13,30,50,.1);">
+          <div style="position:relative;aspect-ratio:16/10;background:repeating-linear-gradient(135deg,#e6ebf0 0 16px,#dfe5eb 16px 32px);display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#9aa3ad;">[ article image ]</span>
+            <div style="position:absolute;top:14px;left:14px;background:var(--accent);color:#fff;border-radius:0;padding:8px 11px;text-align:center;line-height:1;"><div style="font-family:'Sora';font-weight:900;font-size:18px;">12</div><div style="font-size:9px;letter-spacing:.1em;margin-top:3px;">JUN</div></div>
+          </div>
+          <div style="padding:24px;">
+            <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:10px;">Industry News · Trading</div>
+            <h3 style="font-family:'Sora';font-weight:700;color:var(--ink);font-size:18px;line-height:1.3;margin:0 0 16px;">5 reasons to partner with a multi-disciplinary group in Sharjah</h3>
+            <a href="#blog" style="text-decoration:none;display:inline-flex;align-items:center;gap:7px;border:1px solid #e0e5ea;border-radius:0;padding:9px 18px;font-size:12px;font-weight:700;color:var(--ink);" style-hover="border-color:var(--accent);color:var(--accent);">Read More ↗</a>
+          </div>
+        </article>
+        <article style="border:1px solid #eef1f4;border-radius:var(--radius);overflow:hidden;" style-hover="box-shadow:0 16px 40px rgba(13,30,50,.1);">
+          <div style="position:relative;aspect-ratio:16/10;background:repeating-linear-gradient(135deg,#e6ebf0 0 16px,#dfe5eb 16px 32px);display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#9aa3ad;">[ article image ]</span>
+            <div style="position:absolute;top:14px;left:14px;background:var(--accent);color:#fff;border-radius:0;padding:8px 11px;text-align:center;line-height:1;"><div style="font-family:'Sora';font-weight:900;font-size:18px;">04</div><div style="font-size:9px;letter-spacing:.1em;margin-top:3px;">JUN</div></div>
+          </div>
+          <div style="padding:24px;">
+            <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:10px;">Engineering · Steel</div>
+            <h3 style="font-family:'Sora';font-weight:700;color:var(--ink);font-size:18px;line-height:1.3;margin:0 0 16px;">Understanding steel fabrication standards in UAE construction</h3>
+            <a href="#blog" style="text-decoration:none;display:inline-flex;align-items:center;gap:7px;border:1px solid #e0e5ea;border-radius:0;padding:9px 18px;font-size:12px;font-weight:700;color:var(--ink);" style-hover="border-color:var(--accent);color:var(--accent);">Read More ↗</a>
+          </div>
+        </article>
+        <article style="border:1px solid #eef1f4;border-radius:var(--radius);overflow:hidden;" style-hover="box-shadow:0 16px 40px rgba(13,30,50,.1);">
+          <div style="position:relative;aspect-ratio:16/10;background:repeating-linear-gradient(135deg,#e6ebf0 0 16px,#dfe5eb 16px 32px);display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#9aa3ad;">[ article image ]</span>
+            <div style="position:absolute;top:14px;left:14px;background:var(--accent);color:#fff;border-radius:0;padding:8px 11px;text-align:center;line-height:1;"><div style="font-family:'Sora';font-weight:900;font-size:18px;">28</div><div style="font-size:9px;letter-spacing:.1em;margin-top:3px;">MAY</div></div>
+          </div>
+          <div style="padding:24px;">
+            <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:10px;">Guide · Electrical</div>
+            <h3 style="font-family:'Sora';font-weight:700;color:var(--ink);font-size:18px;line-height:1.3;margin:0 0 16px;">How to choose the right electrical contractor in Sharjah</h3>
+            <a href="#blog" style="text-decoration:none;display:inline-flex;align-items:center;gap:7px;border:1px solid #e0e5ea;border-radius:0;padding:9px 18px;font-size:12px;font-weight:700;color:var(--ink);" style-hover="border-color:var(--accent);color:var(--accent);">Read More ↗</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA BANNER ============ -->
+  <section style="position:relative;background:linear-gradient(120deg,#0c1622,#1c3a55);overflow:hidden;">
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.04) 0 2px,transparent 2px 26px);opacity:.5;"></div>
+    <div data-2col style="position:relative;max-width:var(--maxw);margin:0 auto;padding:clamp(40px,6vw,68px) 24px;display:grid;grid-template-columns:1.4fr 1fr;align-items:center;gap:30px;">
+      <h2 style="font-family:'Sora';font-weight:800;color:rgba(255,255,255,.92);font-size:clamp(26px,3.4vw,42px);line-height:1.1;margin:0;letter-spacing:-.01em;">A smart solution for industry across the UAE</h2>
+      <div style="text-align:right;">
+        <a href="#contact" style="text-decoration:none;background:#fff;color:var(--ink);font-weight:700;font-size:15px;padding:17px 30px;border-radius:var(--radius);display:inline-flex;align-items:center;gap:9px;" style-hover="background:var(--accent);color:#fff;">Start Your Free Quote <span>↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:#0a0e13;color:#9aa6b3;padding:clamp(50px,7vw,80px) 24px 0;">
+    <div style="max-width:var(--maxw);margin:0 auto;">
+      <div data-2col style="display:grid;grid-template-columns:1.1fr 1.4fr;gap:32px;align-items:center;padding-bottom:42px;border-bottom:1px solid #1a212b;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <img src="./vintron-logo.png" alt="Vintron Logo" style="width:58px;height:58px;object-fit:contain;flex:none;" />
+          <div><div style="font-family:'Sora';font-weight:800;color:#fff;font-size:19px;">VINTRON</div><div style="font-size:10px;letter-spacing:.2em;color:var(--accent);font-weight:700;">GROUP OF COMPANIES · SHARJAH, UAE</div></div>
+        </div>
+        <form onSubmit="{{ subscribe }}" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:flex-end;">
+          <span style="font-size:14px;max-width:30ch;">Subscribe for the latest news. Stay updated on the latest insights.</span>
+          <div style="display:flex;gap:0;min-width:280px;flex:1;max-width:420px;">
+            <input placeholder="Enter your email..." style="flex:1;background:#141b24;border:1px solid #1f2935;border-right:none;border-radius:var(--radius) 0 0 var(--radius);padding:14px 16px;font-size:14px;color:#fff;outline:none;" />
+            <button type="submit" style="background:var(--accent);color:#fff;font-weight:700;font-size:13px;border:none;padding:0 22px;border-radius:0;cursor:pointer;white-space:nowrap;" style-hover="filter:brightness(.92);">{{ subMsg }} ↗</button>
+          </div>
+        </form>
+      </div>
+
+      <div data-foot style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding:48px 0;">
+        <div>
+          <h4 style="font-family:'Sora';font-weight:800;color:#fff;font-size:16px;margin:0 0 16px;">About Company</h4>
+          <p style="font-size:14px;line-height:1.8;margin:0 0 16px;max-width:34ch;">A Sharjah-based corporate holding group with five operating subsidiaries spanning trading, engineering, contracting, technical services and automotive.</p>
+          <div style="font-family:'Sora';font-weight:800;color:var(--accent);font-size:18px;">Since 2002</div>
+          <div style="font-size:12px;text-transform:uppercase;letter-spacing:.1em;margin-top:6px;">We are available</div>
+          <div style="color:var(--orange);font-size:13px;font-weight:600;">Sun&ndash;Thu · 9am to 6pm</div>
+        </div>
+        <div>
+          <h4 style="font-family:'Sora';font-weight:800;color:#fff;font-size:16px;margin:0 0 16px;">Useful Links</h4>
+          <div style="display:flex;flex-direction:column;gap:11px;font-size:14px;">
+            <a href="#about" style="text-decoration:none;" style-hover="color:var(--accent);">About Us</a>
+            <a href="#companies" style="text-decoration:none;" style-hover="color:var(--accent);">Corporate</a>
+            <a href="#blog" style="text-decoration:none;" style-hover="color:var(--accent);">Blog</a>
+            <a href="#contact" style="text-decoration:none;" style-hover="color:var(--accent);">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h4 style="font-family:'Sora';font-weight:800;color:#fff;font-size:16px;margin:0 0 16px;">Office Address</h4>
+          <p style="font-size:14px;line-height:1.8;margin:0 0 18px;">P.O. Box 48325,<br>Sharjah, United Arab Emirates</p>
+          <h4 style="font-family:'Sora';font-weight:800;color:#fff;font-size:15px;margin:0 0 8px;">Email Address</h4>
+          <p style="font-size:14px;margin:0;">support@vintron.ae</p>
+        </div>
+        <div>
+          <h4 style="font-family:'Sora';font-weight:800;color:#fff;font-size:16px;margin:0 0 16px;">Phone Number</h4>
+          <p style="font-size:14px;line-height:1.9;margin:0 0 18px;">+971 4 2676367<br>+971 4 2676367</p>
+          <h4 style="font-family:'Sora';font-weight:800;color:#fff;font-size:15px;margin:0 0 12px;">Follow Us</h4>
+          <div style="display:flex;gap:10px;">
+            <a href="#blog" style="width:38px;height:38px;border-radius:0;background:#141b24;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#aab4c0;font-weight:700;font-size:13px;" style-hover="background:var(--accent);color:#fff;">in</a>
+            <a href="#blog" style="width:38px;height:38px;border-radius:0;background:#141b24;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#aab4c0;font-weight:700;font-size:13px;" style-hover="background:var(--accent);color:#fff;">f</a>
+            <a href="#blog" style="width:38px;height:38px;border-radius:0;background:#141b24;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#aab4c0;font-weight:700;font-size:13px;" style-hover="background:var(--accent);color:#fff;">X</a>
+            <a href="#blog" style="width:38px;height:38px;border-radius:0;background:#141b24;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#aab4c0;font-weight:700;font-size:12px;" style-hover="background:var(--accent);color:#fff;">IG</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:22px 0;border-top:1px solid #1a212b;font-size:13px;">
+        <div>© 2026 Vintron Group · All rights reserved</div>
+        <div style="display:flex;gap:22px;flex-wrap:wrap;">
+          <a href="#contact" style="text-decoration:none;" style-hover="color:var(--accent);">Terms &amp; Conditions</a>
+          <a href="#contact" style="text-decoration:none;" style-hover="color:var(--accent);">Privacy Policy</a>
+          <a href="#contact" style="text-decoration:none;" style-hover="color:var(--accent);">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp floating button -->
+  <a href="https://wa.me/97142676367" target="_blank" rel="noopener" style="position:fixed;right:22px;bottom:134px;z-index:900;width:48px;height:48px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,.35);text-decoration:none;" title="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+  </a>
+  <!-- Call floating button -->
+  <a href="tel:+97142676367" style="position:fixed;right:22px;bottom:78px;z-index:900;width:48px;height:48px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(242,106,33,.35);text-decoration:none;" title="Call Us">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.23h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+  </a>
+  <button onClick="{{ scrollTop }}" style="position:fixed;right:22px;bottom:22px;z-index:900;width:48px;height:48px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;color:#fff;font-size:20px;box-shadow:0 8px 24px rgba(13,30,50,.25);" style-hover="filter:brightness(.92);">↑</button>
+
+  <!-- ============ GRID SIDE PANEL ============ -->
+  <div id="vw-gp-ov" onclick="vwClosePanel()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:1200;"></div>
+  <div id="vw-gp" style="position:fixed;top:0;right:0;width:min(400px,92vw);height:100%;background:#fff;z-index:1300;overflow-y:auto;transform:translateX(100%);transition:transform .38s cubic-bezier(.22,.61,.36,1);box-shadow:-10px 0 60px rgba(0,0,0,.2);font-family:'Sora',sans-serif;">
+    <button id="vw-close-btn" style="position:absolute;top:16px;right:16px;width:38px;height:38px;border-radius:50%;border:1.5px solid #dde2e8;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#444;z-index:10;font-size:15px;">&#10005;</button>
+    <div style="padding:34px 26px 44px;">
+      <div style="display:flex;align-items:center;gap:14px;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid #eef1f4;">
+        <img src="./vintron-logo.png" alt="Vintron" style="width:48px;height:48px;object-fit:contain;flex:none;">
+        <div>
+          <div style="font-weight:800;font-size:18px;color:#171a1f;letter-spacing:.04em;line-height:1.2;">VINTRON</div>
+          <div style="font-size:8.5px;letter-spacing:.22em;color:#f26a21;font-weight:700;margin-top:3px;">GROUP OF COMPANIES</div>
+        </div>
+      </div>
+      <p style="font-size:13.5px;line-height:1.82;color:#6a717a;margin:0 0 20px;">A Sharjah-based corporate holding group with 22+ years of experience, delivering quality across trading, steel engineering, electrical contracting, technical services and automotive.</p>
+      <div style="display:flex;flex-direction:column;gap:13px;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid #eef1f4;">
+        <div style="display:flex;align-items:center;gap:11px;font-size:13px;color:#5a5f66;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f26a21" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-3 2a11 11 0 005 5l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>
+          +971 4 2676367
+        </div>
+        <div style="display:flex;align-items:center;gap:11px;font-size:13px;color:#5a5f66;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f26a21" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+          P.O. Box 48325, Sharjah, UAE
+        </div>
+        <div style="display:flex;align-items:center;gap:11px;font-size:13px;color:#5a5f66;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f26a21" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          support@vintron.ae
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid #eef1f4;">
+        <a href="#" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #dde2e8;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#555;font-size:13px;font-weight:800;">X</a>
+        <a href="#" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #dde2e8;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#555;font-size:11px;font-weight:800;">IG</a>
+        <a href="#" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #dde2e8;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#555;font-size:14px;font-weight:800;">f</a>
+        <a href="#" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #dde2e8;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#555;font-size:11px;font-weight:800;">in</a>
+      </div>
+      <div style="font-weight:800;font-size:11px;color:#171a1f;text-transform:uppercase;letter-spacing:.14em;margin-bottom:16px;">Our Companies</div>
+      <div>
+        <a href="./vintron-trading.dc.html" style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #eef1f4;text-decoration:none;align-items:center;">
+          <div style="width:66px;height:50px;background:#0c1622;display:flex;align-items:center;justify-content:center;flex:none;"><span style="font-weight:900;font-size:22px;color:#f26a21;font-family:'Sora',sans-serif;">01</span></div>
+          <div><div style="font-weight:700;color:#171a1f;font-size:13px;line-height:1.35;">Vintron General Trading LLC</div><div style="font-size:11.5px;color:#8a929c;margin-top:4px;">General Trading &amp; Safety Equipment</div></div>
+        </a>
+        <a href="./vienna-steel.dc.html" style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #eef1f4;text-decoration:none;align-items:center;">
+          <div style="width:66px;height:50px;background:#0c1622;display:flex;align-items:center;justify-content:center;flex:none;"><span style="font-weight:900;font-size:22px;color:#15a6dc;font-family:'Sora',sans-serif;">02</span></div>
+          <div><div style="font-weight:700;color:#171a1f;font-size:13px;line-height:1.35;">Vienna Turning Eng. &amp; Steel</div><div style="font-size:11.5px;color:#8a929c;margin-top:4px;">Steel Fabrication &amp; CNC Machining</div></div>
+        </a>
+        <a href="./linu-tech.dc.html" style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #eef1f4;text-decoration:none;align-items:center;">
+          <div style="width:66px;height:50px;background:#0c1622;display:flex;align-items:center;justify-content:center;flex:none;"><span style="font-weight:900;font-size:22px;color:#f26a21;font-family:'Sora',sans-serif;">03</span></div>
+          <div><div style="font-weight:700;color:#171a1f;font-size:13px;line-height:1.35;">Linu Tech Cont.</div><div style="font-size:11.5px;color:#8a929c;margin-top:4px;">Electrical &amp; MEP Contracting</div></div>
+        </a>
+        <a href="./vintron-technical.dc.html" style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #eef1f4;text-decoration:none;align-items:center;">
+          <div style="width:66px;height:50px;background:#0c1622;display:flex;align-items:center;justify-content:center;flex:none;"><span style="font-weight:900;font-size:22px;color:#15a6dc;font-family:'Sora',sans-serif;">04</span></div>
+          <div><div style="font-weight:700;color:#171a1f;font-size:13px;line-height:1.35;">Vintron Technical Services</div><div style="font-size:11.5px;color:#8a929c;margin-top:4px;">Technical &amp; Maintenance Services</div></div>
+        </a>
+        <a href="./venus-auto.dc.html" style="display:flex;gap:14px;padding:14px 0;text-decoration:none;align-items:center;">
+          <div style="width:66px;height:50px;background:#0c1622;display:flex;align-items:center;justify-content:center;flex:none;"><span style="font-weight:900;font-size:22px;color:#f26a21;font-family:'Sora',sans-serif;">05</span></div>
+          <div><div style="font-weight:700;color:#171a1f;font-size:13px;line-height:1.35;">Venus Auto Maintenance</div><div style="font-size:11.5px;color:#8a929c;margin-top:4px;">Automotive Services</div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#15a6dc&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#15a6dc&quot;,&quot;#1b6fb8&quot;,&quot;#0f9d77&quot;,&quot;#e0852a&quot;]},&quot;secondaryAccent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#f26a21&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#f26a21&quot;,&quot;#e0852a&quot;,&quot;#c8922a&quot;,&quot;#d94c4c&quot;]},&quot;cornerStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Soft&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;Sharp&quot;,&quot;Soft&quot;,&quot;Rounded&quot;]}}">
+class Component extends DCLogic {
+  state = {
+    mobileOpen: false,
+    companiesOpen: false,
+    activeService: 0,
+    activeT: 0,
+    stats: [2500, 98, 15, 22],
+    statsDone: false,
+    formMsg: 'Submit Now',
+    subMsg: 'Subscribe'
+  };
+
+  subs = [
+    { name: 'Vintron General Trading LLC', sector: 'General Trading & Safety Equipment', num: '01', url: './vintron-trading.dc.html', desc: 'Supplying high-quality electrical accessories, plumbing materials, safety equipment, educational trainers and auto maintenance products to clients across the UAE and GCC.' },
+    { name: 'Vienna Turning Eng. & Steel', sector: 'Steel Fabrication & Machining', num: '02', url: './vienna-steel.dc.html', desc: 'Precision steel fabrication and CNC machining services in Sharjah, delivering dependable metal works for the UAE construction and industrial sectors.' },
+    { name: 'Linu Tech Cont.', sector: 'Electrical & Technical Contracting', num: '03', url: './linu-tech.dc.html', desc: 'Licensed electrical and MEP contracting across Sharjah and the wider UAE, built on engineering precision, safety and on-time delivery.' },
+    { name: 'Vintron Technical Services', sector: 'Technical & Maintenance Services', num: '04', url: './vintron-technical.dc.html', desc: 'Comprehensive technical and maintenance services that keep UAE facilities, equipment and operations running at peak performance.' },
+    { name: 'Venus Auto Maintenance', sector: 'Automotive Services', num: '05', url: './venus-auto.dc.html', desc: 'Complete vehicle maintenance and auto services in Sharjah, engineered for the demands of UAE roads and summer conditions.' }
+  ];
+
+  tlist = [
+    { quote: 'Vintron-World has been a reliable single point of contact for our trading and technical needs across the Emirates. Quality and follow-through are consistent every time.', name: 'Praveen Nair', role: 'Manager · Trueline Technologies' },
+    { quote: 'Their steel fabrication team delivered on spec and ahead of schedule. Working with one group across multiple disciplines saved us real time and cost.', name: 'Ahmed Al Suwaidi', role: 'Project Lead · Gulf Build Contracting' },
+    { quote: 'Professional, responsive and genuinely knowledgeable about the UAE market. Vintron has become our default partner for electrical and maintenance work.', name: 'Maria Fernandes', role: 'Facilities Director · Sharjah Logistics' }
+  ];
+
+  statTargets = [2500, 98, 15, 22];
+
+  constructor(props) {
+    super(props);
+    this.statsRef = React.createRef();
+    this._handleScroll = this._handleScroll.bind(this);
+  }
+
+  componentDidMount() {
+    // apply tweak props as CSS variables
+    const root = document.documentElement;
+    if (this.props.accentColor) root.style.setProperty('--accent', this.props.accentColor);
+    if (this.props.secondaryAccent) root.style.setProperty('--orange', this.props.secondaryAccent);
+    if (this.props.cornerStyle === 'Sharp') root.style.setProperty('--radius', '0px');
+    else if (this.props.cornerStyle === 'Rounded') root.style.setProperty('--radius', '14px');
+
+    // testimonial auto-rotate
+    this._tInterval = setInterval(() => {
+      this.setState(s => ({ activeT: (s.activeT + 1) % this.tlist.length }));
+    }, 6000);
+
+    // stat count-up on scroll into view (progressive enhancement;
+    // final numbers already render from initial state so this is purely visual)
+    if (this.statsRef.current && 'IntersectionObserver' in window) {
+      this._obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting && !this.state.statsDone) {
+            this.setState({ statsDone: true });
+            this._animateStats();
+          }
+        });
+      }, { threshold: 0.3 });
+      this._obs.observe(this.statsRef.current);
+    }
+
+    // close dropdown when clicking outside
+    document.addEventListener('click', this._handleScroll, true);
+  }
+
+  componentWillUnmount() {
+    if (this._tInterval) clearInterval(this._tInterval);
+    if (this._obs) this._obs.disconnect();
+    document.removeEventListener('click', this._handleScroll, true);
+  }
+
+  _handleScroll(e) {
+    if (this.state.companiesOpen && !(e.target.closest && e.target.closest('button'))) {
+      this.setState({ companiesOpen: false });
+    }
+  }
+
+  _animateStats() {
+    const dur = 1400;
+    const start = performance.now();
+    const step = (now) => {
+      const p = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      this.setState({ stats: this.statTargets.map(t => Math.round(t * eased)) });
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  _fmtStat(i, n) {
+    if (i === 0) return (n >= 1000 ? (n / 1000).toFixed(1) + 'K' : String(n)) + '+';
+    if (i === 1) return n + '%';
+    return n + '+';
+  }
+
+  renderVals() {
+    const closeMenu = () => this.setState({ mobileOpen: false, companiesOpen: false });
+    const toggleMenu = () => this.setState(s => ({ mobileOpen: !s.mobileOpen }));
+    const toggleCompanies = (e) => { if (e) e.stopPropagation(); this.setState(s => ({ companiesOpen: !s.companiesOpen })); };
+    const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const subsidiaries = this.subs.map((s, i) => {
+      const active = i === this.state.activeService;
+      return {
+        name: s.name,
+        select: () => this.setState({ activeService: i, mobileOpen: false }),
+        pick: () => this.setState({ activeService: i, companiesOpen: false, mobileOpen: false }),
+        tabStyle: 'display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;text-align:left;cursor:pointer;border:none;border-radius:var(--radius);padding:18px 22px;transition:all .18s ease;'
+          + (active
+            ? 'background:var(--accent);color:#fff;box-shadow:0 10px 26px rgba(21,166,220,.3);'
+            : 'background:#fff;color:var(--ink);box-shadow:0 4px 14px rgba(13,30,50,.05);')
+      };
+    });
+
+    const as = this.subs[this.state.activeService];
+    const activeService = { name: as.name, sector: as.sector, desc: as.desc, num: as.num, url: as.url };
+
+    const testimonials = this.tlist.map((t, i) => ({
+      pick: () => this.setState({ activeT: i }),
+      dotStyle: 'width:' + (i === this.state.activeT ? '28px' : '10px') + ';height:10px;border-radius:0;border:none;cursor:pointer;transition:all .2s ease;background:' + (i === this.state.activeT ? 'var(--accent)' : 'rgba(255,255,255,.3)') + ';'
+    }));
+    const at = this.tlist[this.state.activeT];
+
+    const submitForm = (e) => {
+      e.preventDefault();
+      this.setState({ formMsg: 'Thank you — we will reply within 24h' });
+      setTimeout(() => this.setState({ formMsg: 'Submit Now' }), 3500);
+    };
+    const subscribe = (e) => {
+      e.preventDefault();
+      this.setState({ subMsg: 'Subscribed' });
+      setTimeout(() => this.setState({ subMsg: 'Subscribe' }), 3000);
+    };
+
+    return {
+      mobileOpen: this.state.mobileOpen,
+      companiesOpen: this.state.companiesOpen,
+      closeMenu, toggleMenu, toggleCompanies, scrollTop,
+      subsidiaries, activeService,
+      testimonials, activeT: at,
+      statsRef: this.statsRef,
+      stat0: this._fmtStat(0, this.state.stats[0]),
+      stat1: this._fmtStat(1, this.state.stats[1]),
+      stat2: this._fmtStat(2, this.state.stats[2]),
+      stat3: this._fmtStat(3, this.state.stats[3]),
+      submitForm, subscribe,
+      formMsg: this.state.formMsg,
+      subMsg: this.state.subMsg
+    };
+  }
+}
+</script>
+<script>
+  function vwOpenPanel(){document.getElementById('vw-gp').style.transform='translateX(0)';document.getElementById('vw-gp-ov').style.display='block';document.body.style.overflow='hidden';}
+  function vwClosePanel(){document.getElementById('vw-gp').style.transform='translateX(100%)';document.getElementById('vw-gp-ov').style.display='none';document.body.style.overflow='';}
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')vwClosePanel();});
+  document.addEventListener('click',function(e){
+    if(e.target.closest('#vw-grid-btn')){vwOpenPanel();return;}
+    var ov=document.getElementById('vw-gp-ov');if(ov&&e.target===ov){vwClosePanel();return;}
+    if(e.target.closest('#vw-close-btn')){vwClosePanel();return;}
+  });
+</script>
+</body>
+</html>

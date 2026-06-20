@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Vintron General Trading LLC — Vintron Group of Companies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:'Sora',system-ui,sans-serif;color:#5a5f66;background:#fff;-webkit-font-smoothing:antialiased;}
+  :root{
+    --accent:#15a6dc; --orange:#f26a21; --ink:#171a1f; --muted:#6a717a;
+    --dark:#0e1217; --light:#f4f6f8; --radius:0px; --maxw:1240px;
+  }
+  a{color:inherit;}
+  input,textarea,select,button{font-family:inherit;}
+  @keyframes vwfade{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ── Hover dropdown ── */
+  .nav-has-dd{position:relative;}
+  .nav-dd{display:none;position:absolute;top:82px;left:-16px;background:#0b111a;box-shadow:0 16px 40px rgba(0,0,0,.55);padding:8px;min-width:268px;border-top:3px solid var(--orange);z-index:200;animation:vwfade .15s ease;}
+  .nav-has-dd:hover .nav-dd{display:block;}
+
+  /* ── Mobile menu toggle ── */
+  #mob-panel{display:none;}
+  #mob-check:checked ~ * #mob-panel,
+  #mob-check:checked + * #mob-panel{display:flex;}
+
+  @media (max-width:920px){
+    [data-desktop-nav]{display:none !important;}
+    [data-hamburger]{display:flex !important;}
+    [data-about]{grid-template-columns:1fr !important;}
+    [data-services]{grid-template-columns:1fr !important;}
+    [data-2col]{grid-template-columns:1fr !important;}
+    [data-benefits]{grid-template-columns:1fr !important;}
+    [data-4col]{grid-template-columns:1fr 1fr !important;}
+    [data-3col]{grid-template-columns:1fr !important;}
+    [data-foot]{grid-template-columns:1fr 1fr !important;}
+  }
+  @media (max-width:560px){
+    [data-4col]{grid-template-columns:1fr !important;}
+    [data-foot]{grid-template-columns:1fr !important;}
+    [data-bchips]{grid-template-columns:1fr !important;}
+  }
+
+  /* Simple mobile toggle — no JS needed */
+  .mob-toggle{display:none;}
+  .mob-toggle:checked ~ .mob-panel-wrap .mob-panel{display:flex !important;}
+  /* ── Custom cursor ── */
+  html, body, a, button { cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='28'%20height='28'%20viewBox='0%200%2028%2028'%3E%3Cpath%20d='M5%203%20L5%2023%20L10%2018%20L13.5%2025%20L16.5%2023.5%20L13%2017%20L20%2017%20Z'%20fill='%23f26a21'%20stroke='%23171a1f'%20stroke-width='1.3'%20stroke-linejoin='round'/%3E%3C/svg%3E") 4 3, auto; }
+</style>
+</helmet>
+
+<div style="overflow-x:clip;font-family:'Sora',sans-serif;color:var(--muted);">
+
+  <!-- ============ HEADER / NAV ============ -->
+  <header style="position:sticky;top:0;z-index:1000;background:#0c1622;box-shadow:0 2px 16px rgba(0,0,0,.4);">
+
+    <!-- Hidden checkbox for mobile menu toggle -->
+    <input type="checkbox" id="mob-check" class="mob-toggle" style="display:none;">
+
+    <div style="width:100%;height:82px;display:flex;align-items:center;justify-content:space-between;gap:0;">
+
+      <!-- Logo -->
+      <a href="./index.html" style="display:flex;align-items:center;gap:14px;text-decoration:none;flex:none;height:82px;padding:0 28px;background:#080c14;border-right:1px solid rgba(255,255,255,.07);">
+        <img src="./vintron-logo.png" alt="Vintron Logo" style="width:52px;height:52px;object-fit:contain;" />
+        <div style="line-height:1.2;">
+          <div style="font-family:'Sora';font-weight:800;font-size:17px;color:#fff;letter-spacing:.02em;">VINTRON</div>
+          <div style="font-size:8.5px;letter-spacing:.24em;color:var(--orange);font-weight:600;">GROUP OF COMPANIES</div>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav data-desktop-nav style="display:flex;align-items:center;justify-content:center;gap:0;height:82px;padding:0 20px;flex:1;">
+        <a href="./index.html" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;font-size:13.5px;padding:0 18px;height:82px;display:inline-flex;align-items:center;" style-hover="color:#fff;background:rgba(255,255,255,.04);">Home</a>
+        <a href="./index.html#about" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;font-size:13.5px;padding:0 18px;height:82px;display:inline-flex;align-items:center;" style-hover="color:#fff;background:rgba(255,255,255,.04);">About Us</a>
+
+        <!-- Corporate dropdown — CSS hover -->
+        <div class="nav-has-dd" style="height:82px;display:flex;align-items:center;">
+          <span style="color:rgba(255,255,255,.85);font-weight:600;font-size:13.5px;padding:0 18px;height:82px;display:inline-flex;align-items:center;gap:6px;cursor:default;user-select:none;">Corporate <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 4 6 8 10 4"/></svg></span>
+          <div class="nav-dd">
+            <a href="./vintron-trading.dc.html" style="display:block;text-decoration:none;padding:12px 16px;color:var(--orange);font-weight:600;font-size:13.5px;" style-hover="background:#1a2535;">Vintron General Trading LLC</a>
+            <a href="./vienna-steel.dc.html" style="display:block;text-decoration:none;padding:12px 16px;color:rgba(255,255,255,.82);font-weight:600;font-size:13.5px;" style-hover="background:#1a2535;color:var(--orange);">Vienna Turning Eng. &amp; Steel</a>
+            <a href="./linu-tech.dc.html" style="display:block;text-decoration:none;padding:12px 16px;color:rgba(255,255,255,.82);font-weight:600;font-size:13.5px;" style-hover="background:#1a2535;color:var(--orange);">Linu Tech Cont.</a>
+            <a href="./vintron-technical.dc.html" style="display:block;text-decoration:none;padding:12px 16px;color:rgba(255,255,255,.82);font-weight:600;font-size:13.5px;" style-hover="background:#1a2535;color:var(--orange);">Vintron Technical Services</a>
+            <a href="./venus-auto.dc.html" style="display:block;text-decoration:none;padding:12px 16px;color:rgba(255,255,255,.82);font-weight:600;font-size:13.5px;" style-hover="background:#1a2535;color:var(--orange);">Venus Auto Maintenance</a>
+          </div>
+        </div>
+
+        <a href="./index.html#blog" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;font-size:13.5px;padding:0 18px;height:82px;display:inline-flex;align-items:center;" style-hover="color:#fff;background:rgba(255,255,255,.04);">Blog</a>
+        <a href="./index.html#contact" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;font-size:13.5px;padding:0 18px;height:82px;display:inline-flex;align-items:center;" style-hover="color:#fff;background:rgba(255,255,255,.04);">Contact</a>
+      </nav>
+
+      <!-- Right: Phone + CTA + Icons -->
+      <div data-desktop-nav style="display:flex;align-items:center;gap:0;flex:none;height:82px;">
+        <!-- Phone block -->
+        <div style="display:flex;align-items:center;gap:13px;padding:0 24px;border-right:1px solid rgba(255,255,255,.08);height:82px;">
+          <div style="width:44px;height:44px;background:var(--orange);display:flex;align-items:center;justify-content:center;flex:none;">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-3 2a11 11 0 005 5l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>
+          </div>
+          <div style="line-height:1.3;">
+            <div style="font-size:10px;color:rgba(255,255,255,.48);font-weight:500;letter-spacing:.04em;">Call us any time</div>
+            <div style="font-family:'Sora';font-weight:700;color:#fff;font-size:15px;letter-spacing:-.01em;">+971 4 2676367</div>
+          </div>
+        </div>
+        <!-- GET IN TOUCH button -->
+        <a href="./index.html#contact" style="text-decoration:none;background:var(--orange);color:#fff;font-weight:700;font-size:12.5px;letter-spacing:.08em;padding:0 28px;height:44px;display:inline-flex;align-items:center;gap:9px;white-space:nowrap;margin:0 20px;" style-hover="filter:brightness(.9);">GET IN TOUCH <svg viewBox="0 0 20 20" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="17" x2="17" y2="3"/><polyline points="7 3 17 3 17 13"/></svg></a>
+        <!-- Search icon -->
+        <button style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.55);padding:0 20px;display:flex;align-items:center;justify-content:center;height:82px;border-left:1px solid rgba(255,255,255,.08);" style-hover="color:#fff;background:rgba(255,255,255,.04);">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <!-- Grid icon -->
+        <button id="vw-grid-btn" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.55);padding:0 20px;display:flex;align-items:center;justify-content:center;height:82px;border-left:1px solid rgba(255,255,255,.08);" style-hover="color:#fff;background:rgba(255,255,255,.04);">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="5" cy="5" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="5" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="5" r="1.5" fill="currentColor" stroke="none"/><circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="5" cy="19" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="19" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </button>
+      </div>
+
+      <!-- Hamburger — label toggles the hidden checkbox -->
+      <label for="mob-check" data-hamburger style="display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:12px 16px;">
+        <span style="width:24px;height:2px;background:#fff;display:block;"></span>
+        <span style="width:24px;height:2px;background:#fff;display:block;"></span>
+        <span style="width:24px;height:2px;background:#fff;display:block;"></span>
+      </label>
+    </div>
+
+    <!-- Static mobile panel — shown via CSS checkbox trick -->
+    <div class="mob-panel-wrap">
+      <div id="mob-panel" style="background:#0e1217;border-top:1px solid #1a212b;padding:14px 24px 22px;flex-direction:column;gap:4px;animation:vwfade .2s ease;">
+        <a href="./index.html" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;padding:12px 6px;border-bottom:1px solid #1a212b;display:block;">Home</a>
+        <a href="./index.html#about" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;padding:12px 6px;border-bottom:1px solid #1a212b;display:block;">About Us</a>
+        <div style="padding:12px 6px 6px;font-weight:700;color:var(--orange);font-size:12px;letter-spacing:.12em;text-transform:uppercase;">Corporate</div>
+        <a href="./vintron-trading.dc.html" style="text-decoration:none;color:var(--orange);font-weight:600;font-size:14px;padding:9px 16px;display:block;">— Vintron General Trading LLC</a>
+        <a href="./vienna-steel.dc.html" style="text-decoration:none;color:rgba(255,255,255,.6);font-weight:600;font-size:14px;padding:9px 16px;display:block;">— Vienna Turning Eng. &amp; Steel</a>
+        <a href="./linu-tech.dc.html" style="text-decoration:none;color:rgba(255,255,255,.6);font-weight:600;font-size:14px;padding:9px 16px;display:block;">— Linu Tech Cont.</a>
+        <a href="./vintron-technical.dc.html" style="text-decoration:none;color:rgba(255,255,255,.6);font-weight:600;font-size:14px;padding:9px 16px;display:block;">— Vintron Technical Services</a>
+        <a href="./venus-auto.dc.html" style="text-decoration:none;color:rgba(255,255,255,.6);font-weight:600;font-size:14px;padding:9px 16px;display:block;">— Venus Auto Maintenance</a>
+        <a href="./index.html#blog" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;padding:12px 6px;border-top:1px solid #1a212b;border-bottom:1px solid #1a212b;display:block;">Blog</a>
+        <a href="./index.html#contact" style="text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;padding:12px 6px;display:block;">Contact</a>
+        <a href="./index.html#contact" style="text-decoration:none;background:var(--orange);color:#fff;font-weight:700;text-align:center;padding:13px;border-radius:var(--radius);margin-top:10px;display:block;">GET IN TOUCH ↗</a>
+      </div>
+    </div>
+
+    <style>
+      /* Show mobile panel when checkbox is checked */
+      #mob-check:checked ~ .mob-panel-wrap #mob-panel{display:flex !important;}
+    </style>
+
+  </header>
+
+  <!-- ============ HERO (company sub-page — compact) ============ -->
+  <section style="position:relative;background:linear-gradient(105deg,#070b11 0%,#0c1622 45%,#0f1c2b 70%,#0c1622 100%);overflow:hidden;display:flex;align-items:center;">
+    <!-- Grid texture overlay -->
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.03) 0 1px,transparent 1px 28px);pointer-events:none;"></div>
+    <!-- Right fade vignette -->
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,11,17,.98) 0%,rgba(7,11,17,.88) 35%,rgba(7,11,17,.55) 65%,rgba(7,11,17,.2) 100%);pointer-events:none;"></div>
+    <!-- Bottom orange bar -->
+    <div style="position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--orange);"></div>
+
+    <div style="position:relative;max-width:var(--maxw);margin:0 auto;width:100%;padding:clamp(80px,8vw,110px) 24px;">
+
+      <!-- Breadcrumb -->
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:22px;flex-wrap:wrap;">
+        <a href="./index.html" style="text-decoration:none;color:rgba(255,255,255,.45);font-size:13px;font-weight:600;" style-hover="color:var(--accent);">Home</a>
+        <span style="color:rgba(255,255,255,.25);font-size:13px;">/</span>
+        <a href="./index.html#companies" style="text-decoration:none;color:rgba(255,255,255,.45);font-size:13px;font-weight:600;" style-hover="color:var(--accent);">Corporate</a>
+        <span style="color:rgba(255,255,255,.25);font-size:13px;">/</span>
+        <span style="color:rgba(255,255,255,.75);font-size:13px;font-weight:600;">Vintron General Trading LLC</span>
+      </div>
+
+      <!-- Orange sector label -->
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(242,106,33,.15);border:1px solid rgba(242,106,33,.35);padding:8px 16px;margin-bottom:22px;">
+        <span style="width:6px;height:6px;background:var(--orange);display:inline-block;flex:none;"></span>
+        <span style="color:var(--orange);font-weight:700;font-size:12px;letter-spacing:.18em;text-transform:uppercase;">General Trading &amp; Safety Equipment ↘</span>
+      </div>
+
+      <!-- H1 -->
+      <h1 style="font-family:'Sora';font-weight:800;color:#fff;font-size:clamp(28px,3.6vw,52px);line-height:1.1;letter-spacing:-.02em;margin:0 0 20px;max-width:24ch;">Vintron General <span style="color:var(--orange);">Trading LLC</span></h1>
+
+      <!-- Subtitle -->
+      <p style="color:rgba(255,255,255,.62);font-size:clamp(14px,1.35vw,17px);line-height:1.85;max-width:60ch;margin:0 0 38px;">Supplying high-quality electrical accessories, plumbing materials, safety equipment, educational trainers and auto maintenance products across the UAE and GCC since 2002.</p>
+
+      <!-- CTAs -->
+      <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;">
+        <a href="./index.html#contact" style="text-decoration:none;background:var(--orange);color:#fff;font-weight:700;font-size:13px;letter-spacing:.07em;padding:17px 32px;border-radius:var(--radius);display:inline-flex;align-items:center;gap:10px;text-transform:uppercase;" style-hover="filter:brightness(.92);">Get a Quote ↗</a>
+        <a href="./index.html#companies" style="text-decoration:none;background:transparent;border:1.5px solid rgba(255,255,255,.3);color:#fff;font-weight:700;font-size:13px;letter-spacing:.07em;padding:17px 32px;border-radius:var(--radius);display:inline-flex;align-items:center;gap:10px;text-transform:uppercase;" style-hover="border-color:rgba(255,255,255,.7);background:rgba(255,255,255,.06);">Back to Corporate ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT THE COMPANY ============ -->
+  <section style="background:#fff;padding:clamp(60px,8vw,108px) 24px;">
+    <div data-about style="max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,80px);align-items:center;">
+
+      <!-- Left: placeholder image -->
+      <div>
+        <div style="position:relative;overflow:hidden;aspect-ratio:4/3;background:repeating-linear-gradient(135deg,#e6ebf0 0 16px,#dfe5eb 16px 32px);display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:ui-monospace,monospace;font-size:12px;color:#9aa3ad;">[ trading / warehouse photo ]</span>
+        </div>
+        <div style="margin-top:16px;display:flex;align-items:center;gap:14px;">
+          <div style="width:46px;height:46px;background:var(--orange);display:flex;align-items:center;justify-content:center;flex:none;">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="0"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="17"/><line x1="9.5" y1="14.5" x2="14.5" y2="14.5"/></svg>
+          </div>
+          <div>
+            <div style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:15px;">Founded 2002</div>
+            <div style="color:var(--muted);font-size:13px;">The group's founding business</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: content -->
+      <div>
+        <div style="color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px;">About the Company <span style="color:var(--orange);">↘</span></div>
+        <h2 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:clamp(26px,3.2vw,40px);line-height:1.08;letter-spacing:-.01em;margin:0 0 20px;">Your trusted supply partner across the UAE</h2>
+        <p style="font-size:16px;line-height:1.8;margin:0 0 18px;max-width:58ch;">Vintron General Trading LLC is the founding pillar of the Vintron Group of Companies, established in 2002 in Sharjah, UAE. As the group's original business and trading backbone, it has spent over two decades building a reputation for reliability, quality product sourcing and fast fulfilment.</p>
+        <p style="font-size:16px;line-height:1.8;margin:0 0 26px;max-width:58ch;">Operating across the UAE and the wider GCC, the company supplies a comprehensive range of products — from electrical accessories and plumbing materials to safety equipment, educational trainers and auto maintenance products — to contractors, institutions and businesses of all sizes.</p>
+        <div style="display:flex;flex-direction:column;gap:13px;margin-bottom:32px;">
+          <div style="display:flex;align-items:flex-start;gap:11px;">
+            <span style="color:var(--orange);flex:none;margin-top:2px;">➜</span>
+            <span style="color:var(--ink);font-weight:600;font-size:15px;">Electrical Accessories — switches, sockets, MCBs, distribution boards</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:11px;">
+            <span style="color:var(--orange);flex:none;margin-top:2px;">➜</span>
+            <span style="color:var(--ink);font-weight:600;font-size:15px;">Safety Equipment — PPE, helmets, harnesses, fire safety, first aid</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:11px;">
+            <span style="color:var(--orange);flex:none;margin-top:2px;">➜</span>
+            <span style="color:var(--ink);font-weight:600;font-size:15px;">Plumbing Materials — pipes, fittings, valves, water systems</span>
+          </div>
+        </div>
+        <a href="./index.html#contact" style="text-decoration:none;background:var(--accent);color:#fff;font-weight:700;font-size:14px;padding:14px 26px;border-radius:var(--radius);display:inline-flex;align-items:center;gap:9px;" style-hover="filter:brightness(.92);">Request a Quote ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCTS & SERVICES ============ -->
+  <section style="background:var(--light);padding:clamp(60px,8vw,108px) 24px;">
+    <div style="max-width:var(--maxw);margin:0 auto;">
+      <div style="text-align:center;margin-bottom:52px;">
+        <div style="color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;">Products &amp; Services <span style="color:var(--orange);">↘</span></div>
+        <h2 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:clamp(28px,3.8vw,46px);line-height:1.08;letter-spacing:-.01em;margin:0 auto;max-width:22ch;">What We Supply</h2>
+      </div>
+
+      <div data-3col style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
+
+        <!-- Card 1: Electrical Accessories -->
+        <div style="background:#fff;padding:36px 30px 34px;border-top:3px solid var(--orange);display:flex;flex-direction:column;gap:0;">
+          <div style="width:52px;height:52px;background:var(--orange);display:flex;align-items:center;justify-content:center;margin-bottom:22px;flex:none;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <h3 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:17px;margin:0 0 12px;letter-spacing:-.01em;">Electrical Accessories</h3>
+          <p style="font-size:14px;line-height:1.8;margin:0;flex:1;">Switches, sockets, wiring accessories, MCBs, distribution boards and a full range of electrical installation components from trusted manufacturers.</p>
+        </div>
+
+        <!-- Card 2: Safety Equipment -->
+        <div style="background:#fff;padding:36px 30px 34px;border-top:3px solid var(--orange);display:flex;flex-direction:column;gap:0;">
+          <div style="width:52px;height:52px;background:var(--orange);display:flex;align-items:center;justify-content:center;margin-bottom:22px;flex:none;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:17px;margin:0 0 12px;letter-spacing:-.01em;">Safety Equipment</h3>
+          <p style="font-size:14px;line-height:1.8;margin:0;flex:1;">Personal protective equipment, safety helmets, full-body harnesses, fire safety products and first aid kits — compliant with UAE and international standards.</p>
+        </div>
+
+        <!-- Card 3: Plumbing Materials -->
+        <div style="background:#fff;padding:36px 30px 34px;border-top:3px solid var(--orange);display:flex;flex-direction:column;gap:0;">
+          <div style="width:52px;height:52px;background:var(--orange);display:flex;align-items:center;justify-content:center;margin-bottom:22px;flex:none;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M5 12H2a10 10 0 0020 0h-3"/><circle cx="12" cy="5" r="3"/><path d="M12 8v4"/></svg>
+          </div>
+          <h3 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:17px;margin:0 0 12px;letter-spacing:-.01em;">Plumbing Materials</h3>
+          <p style="font-size:14px;line-height:1.8;margin:0;flex:1;">Pipes, fittings, valves, water supply and drainage system components for residential, commercial and industrial projects across the UAE.</p>
+        </div>
+
+        <!-- Card 4: Educational Trainers -->
+        <div style="background:#fff;padding:36px 30px 34px;border-top:3px solid var(--orange);display:flex;flex-direction:column;gap:0;">
+          <div style="width:52px;height:52px;background:var(--orange);display:flex;align-items:center;justify-content:center;margin-bottom:22px;flex:none;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          </div>
+          <h3 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:17px;margin:0 0 12px;letter-spacing:-.01em;">Educational Trainers</h3>
+          <p style="font-size:14px;line-height:1.8;margin:0;flex:1;">Lab equipment, vocational training kits and demonstration units for technical and educational institutions across the UAE and GCC.</p>
+        </div>
+
+        <!-- Card 5: Auto Maintenance Products -->
+        <div style="background:#fff;padding:36px 30px 34px;border-top:3px solid var(--orange);display:flex;flex-direction:column;gap:0;">
+          <div style="width:52px;height:52px;background:var(--orange);display:flex;align-items:center;justify-content:center;margin-bottom:22px;flex:none;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="0"/><path d="M5 7V5a2 2 0 012-2h10a2 2 0 012 2v2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+          </div>
+          <h3 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:17px;margin:0 0 12px;letter-spacing:-.01em;">Auto Maintenance Products</h3>
+          <p style="font-size:14px;line-height:1.8;margin:0;flex:1;">Lubricants, oil filters, tools, accessories and consumables for vehicle maintenance and garage operations across Sharjah and the wider UAE.</p>
+        </div>
+
+        <!-- Card 6: General Trading -->
+        <div style="background:#fff;padding:36px 30px 34px;border-top:3px solid var(--orange);display:flex;flex-direction:column;gap:0;">
+          <div style="width:52px;height:52px;background:var(--orange);display:flex;align-items:center;justify-content:center;margin-bottom:22px;flex:none;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          </div>
+          <h3 style="font-family:'Sora';font-weight:800;color:var(--ink);font-size:17px;margin:0 0 12px;letter-spacing:-.01em;">General Trading</h3>
+          <p style="font-size:14px;line-height:1.8;margin:0;flex:1;">Procurement and supply solutions for businesses requiring reliable sourcing partners across the UAE &amp; GCC — from single orders to ongoing contracts.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY CHOOSE ============ -->
+  <section style="background:#0c1622;padding:clamp(60px,8vw,108px) 24px;position:relative;overflow:hidden;">
+    <!-- Grid texture overlay -->
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.025) 0 1px,transparent 1px 28px);pointer-events:none;"></div>
+    <!-- Faint watermark text -->
+    <div style="position:absolute;right:-20px;bottom:-30px;font-family:'Sora';font-weight:900;font-size:clamp(120px,18vw,220px);color:rgba(255,255,255,.02);line-height:1;letter-spacing:-.04em;user-select:none;pointer-events:none;">TRADE</div>
+
+    <div style="position:relative;max-width:var(--maxw);margin:0 auto;">
+      <div style="text-align:center;margin-bottom:52px;">
+        <div style="color:var(--orange);font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;">Why Choose Us ↗</div>
+        <h2 style="font-family:'Sora';font-weight:800;color:#fff;font-size:clamp(28px,3.8vw,46px);line-height:1.08;letter-spacing:-.01em;margin:0 auto;max-width:26ch;">Why Partner with Vintron General Trading</h2>
+      </div>
+
+      <div data-3col style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:20px 22px;">
+          <span style="width:10px;height:10px;background:var(--orange);display:inline-block;flex:none;"></span>
+          <span style="color:#fff;font-weight:700;font-size:14px;">22+ Years Experience</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:20px 22px;">
+          <span style="width:10px;height:10px;background:var(--orange);display:inline-block;flex:none;"></span>
+          <span style="color:#fff;font-weight:700;font-size:14px;">UAE &amp; GCC Coverage</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:20px 22px;">
+          <span style="width:10px;height:10px;background:var(--orange);display:inline-block;flex:none;"></span>
+          <span style="color:#fff;font-weight:700;font-size:14px;">Quality Assured Products</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:20px 22px;">
+          <span style="width:10px;height:10px;background:var(--accent);display:inline-block;flex:none;"></span>
+          <span style="color:#fff;font-weight:700;font-size:14px;">Fast Delivery</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:20px 22px;">
+          <span style="width:10px;height:10px;background:var(--accent);display:inline-block;flex:none;"></span>
+          <span style="color:#fff;font-weight:700;font-size:14px;">Competitive Pricing</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:20px 22px;">
+          <span style="width:10px;height:10px;background:var(--accent);display:inline-block;flex:none;"></span>
+          <span style="color:#fff;font-weight:700;font-size:14px;">Trusted Suppliers</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT CTA ============ -->
+  <section style="background:var(--orange);padding:clamp(56px,8vw,96px) 24px;position:relative;overflow:hidden;">
+    <!-- Subtle texture -->
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.06) 0 2px,transparent 2px 26px);pointer-events:none;"></div>
+    <div style="position:relative;max-width:var(--maxw);margin:0 auto;text-align:center;">
+      <h2 style="font-family:'Sora';font-weight:800;color:#fff;font-size:clamp(28px,3.6vw,46px);line-height:1.1;letter-spacing:-.01em;margin:0 0 18px;">Ready to place an order?</h2>
+      <p style="color:rgba(255,255,255,.82);font-size:clamp(15px,1.5vw,18px);line-height:1.8;max-width:52ch;margin:0 auto 36px;">Get in touch with our trading team for product enquiries, quotations or supply contracts across the UAE and GCC.</p>
+      <a href="./index.html#contact" style="text-decoration:none;background:#fff;color:var(--orange);font-weight:800;font-size:14px;letter-spacing:.07em;padding:17px 36px;border-radius:var(--radius);display:inline-flex;align-items:center;gap:10px;text-transform:uppercase;" style-hover="background:var(--ink);color:#fff;">Contact Us Now ↗</a>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:#0a0e13;color:#9aa6b3;padding:clamp(50px,7vw,80px) 24px 0;">
+    <div style="max-width:var(--maxw);margin:0 auto;">
+      <div data-2col style="display:grid;grid-template-columns:1.1fr 1.4fr;gap:32px;align-items:center;padding-bottom:42px;border-bottom:1px solid #1a212b;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <img src="./vintron-logo.png" alt="Vintron Logo" style="width:58px;height:58px;object-fit:contain;flex:none;" />
+          <div><div style="font-family:'Sora';font-weight:800;color:#fff;font-size:19px;">VINTRON</div><div style="font-size:10px;letter-spacing:.2em;color:var(--accent);font-weight:700;">GROUP OF COMPANIES · SHARJAH, UAE</div></div>
+        </div>
+        <form style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:flex-end;" onsubmit="this.querySelector('button').textContent='Subscribed ✓';event.preventDefault();">
+          <span style="font-size:14px;max-width:30ch;">Subscribe for the latest news. Stay updated on the latest insights.</span>
+          <div style="display:flex;gap:0;min-width:280px;flex:1;max-width:420px;">
+            <input placeholder="Enter your email..." style="flex:1;background:#141b24;border:1px solid #1f2935;border-right:none;border-radius:var(--radius) 0 0 var(--radius);padding:14px 16px;font-size:14px;color:#fff;outline:none;" />
+            <button type="submit" style="background:var(--accent);color:#fff;font-weight:700;font-size:13px;border:none;padding:0 22px;border-radius:0;cursor:pointer;white-space:nowrap;" style-hover="filter:brightness(.92);">Subscribe ↗</button>
+          </div>
+        </form>
+      </div>
+
+      <div data-foot style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding:48px 0;">
+        <div>
+          <h4 style="font-family:'Sora';font-weight:800;color:#fff;font-size:16px;margin:0 0 16px;">About Company</h4>
+          <p style="font-size:14px;line-height:1.8;margin:0 0 16px;max-width:34ch;">A Sharjah-based corporate holding group with five operating subsidiaries spanning trading, engineering, contracting, technical services and automotive.</p>
+          <div style="font-family:'Sora';font-weight:800;color:var(--accent);font-size:18px;">Since 2002</div>
+          <div style="font-size:12px;text-transform:uppercase;letter-spacing:.1em;margin-top:6px;">We are available</div>
+          <div style="color:var(--orange);font-size:13px;font-weight:600;">Sun&ndash;Thu · 9am to 6pm</div>
+        </div>
+        <div>
+          <h4 style="font-family:'Sora';font-weight:800;color:#fff;font-size:16px;margin:0 0 16px;">Useful Links</h4>
+          <div style="display:flex;flex-direction:column;gap:11px;font-size:14px;">
+            <a href="./index.html#about" style="text-decoration:none;" style-hover="color:var(--accent);">About Us</a>
+            <a href="./index.html#companies" style="text-decoration:none;" style-hover="color:var(--accent);">Corporate</a>
+            <a href="./index.html#blog" style="text-decoration:none;" style-hover="color:var(--accent);">Blog</a>
+            <a href="./index.html#contact" style="text-decoration:none;" style-hover="color:var(--accent);">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h4 style="font-family:'Sora';font-weight:800;color:#fff;font-size:16px;margin:0 0 16px;">Office Address</h4>
+          <p style="font-size:14px;line-height:1.8;margin:0 0 18px;">P.O. Box 48325,<br>Sharjah, United Arab Emirates</p>
+          <h4 style="font-family:'Sora';font-weight:800;color:#fff;font-size:15px;margin:0 0 8px;">Email Address</h4>
+          <p style="font-size:14px;margin:0;">support@vintron.ae</p>
+        </div>
+        <div>
+          <h4 style="font-family:'Sora';font-weight:800;color:#fff;font-size:16px;margin:0 0 16px;">Phone Number</h4>
+          <p style="font-size:14px;line-height:1.9;margin:0 0 18px;">+971 4 2676367<br>+971 4 2676367</p>
+          <h4 style="font-family:'Sora';font-weight:800;color:#fff;font-size:15px;margin:0 0 12px;">Follow Us</h4>
+          <div style="display:flex;gap:10px;">
+            <a href="./index.html#blog" style="width:38px;height:38px;border-radius:0;background:#141b24;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#aab4c0;font-weight:700;font-size:13px;" style-hover="background:var(--accent);color:#fff;">in</a>
+            <a href="./index.html#blog" style="width:38px;height:38px;border-radius:0;background:#141b24;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#aab4c0;font-weight:700;font-size:13px;" style-hover="background:var(--accent);color:#fff;">f</a>
+            <a href="./index.html#blog" style="width:38px;height:38px;border-radius:0;background:#141b24;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#aab4c0;font-weight:700;font-size:13px;" style-hover="background:var(--accent);color:#fff;">X</a>
+            <a href="./index.html#blog" style="width:38px;height:38px;border-radius:0;background:#141b24;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#aab4c0;font-weight:700;font-size:12px;" style-hover="background:var(--accent);color:#fff;">IG</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:22px 0;border-top:1px solid #1a212b;font-size:13px;">
+        <div>&copy; 2026 Vintron-World Group &middot; All rights reserved</div>
+        <div style="display:flex;gap:22px;flex-wrap:wrap;">
+          <a href="./index.html#contact" style="text-decoration:none;" style-hover="color:var(--accent);">Terms &amp; Conditions</a>
+          <a href="./index.html#contact" style="text-decoration:none;" style-hover="color:var(--accent);">Privacy Policy</a>
+          <a href="./index.html#contact" style="text-decoration:none;" style-hover="color:var(--accent);">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to top -->
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})" style="position:fixed;right:22px;bottom:22px;z-index:900;width:48px;height:48px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;color:#fff;font-size:20px;box-shadow:0 8px 24px rgba(13,30,50,.25);" style-hover="filter:brightness(.92);">&#8593;</button>
+
+  <!-- ============ GRID SIDE PANEL ============ -->
+  <div id="vw-gp-ov" onclick="vwClosePanel()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:1200;"></div>
+  <div id="vw-gp" style="position:fixed;top:0;right:0;width:min(400px,92vw);height:100%;background:#fff;z-index:1300;overflow-y:auto;transform:translateX(100%);transition:transform .38s cubic-bezier(.22,.61,.36,1);box-shadow:-10px 0 60px rgba(0,0,0,.2);font-family:'Sora',sans-serif;">
+    <button id="vw-close-btn" style="position:absolute;top:16px;right:16px;width:38px;height:38px;border-radius:50%;border:1.5px solid #dde2e8;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#444;z-index:10;font-size:15px;">&#10005;</button>
+    <div style="padding:34px 26px 44px;">
+      <div style="display:flex;align-items:center;gap:14px;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid #eef1f4;">
+        <img src="./vintron-logo.png" alt="Vintron" style="width:48px;height:48px;object-fit:contain;flex:none;">
+        <div>
+          <div style="font-weight:800;font-size:18px;color:#171a1f;letter-spacing:.04em;line-height:1.2;">VINTRON</div>
+          <div style="font-size:8.5px;letter-spacing:.22em;color:#f26a21;font-weight:700;margin-top:3px;">GROUP OF COMPANIES</div>
+        </div>
+      </div>
+      <p style="font-size:13.5px;line-height:1.82;color:#6a717a;margin:0 0 20px;">A Sharjah-based corporate holding group with 22+ years of experience, delivering quality across trading, steel engineering, electrical contracting, technical services and automotive.</p>
+      <div style="display:flex;flex-direction:column;gap:13px;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid #eef1f4;">
+        <div style="display:flex;align-items:center;gap:11px;font-size:13px;color:#5a5f66;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f26a21" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-3 2a11 11 0 005 5l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>
+          +971 4 2676367
+        </div>
+        <div style="display:flex;align-items:center;gap:11px;font-size:13px;color:#5a5f66;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f26a21" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+          P.O. Box 48325, Sharjah, UAE
+        </div>
+        <div style="display:flex;align-items:center;gap:11px;font-size:13px;color:#5a5f66;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f26a21" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          support@vintron.ae
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid #eef1f4;">
+        <a href="#" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #dde2e8;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#555;font-size:13px;font-weight:800;">X</a>
+        <a href="#" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #dde2e8;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#555;font-size:11px;font-weight:800;">IG</a>
+        <a href="#" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #dde2e8;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#555;font-size:14px;font-weight:800;">f</a>
+        <a href="#" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #dde2e8;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#555;font-size:11px;font-weight:800;">in</a>
+      </div>
+      <div style="font-weight:800;font-size:11px;color:#171a1f;text-transform:uppercase;letter-spacing:.14em;margin-bottom:16px;">Our Companies</div>
+      <div>
+        <a href="./vintron-trading.dc.html" style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #eef1f4;text-decoration:none;align-items:center;">
+          <div style="width:66px;height:50px;background:#0c1622;display:flex;align-items:center;justify-content:center;flex:none;"><span style="font-weight:900;font-size:22px;color:#f26a21;font-family:'Sora',sans-serif;">01</span></div>
+          <div><div style="font-weight:700;color:#171a1f;font-size:13px;line-height:1.35;">Vintron General Trading LLC</div><div style="font-size:11.5px;color:#8a929c;margin-top:4px;">General Trading &amp; Safety Equipment</div></div>
+        </a>
+        <a href="./vienna-steel.dc.html" style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #eef1f4;text-decoration:none;align-items:center;">
+          <div style="width:66px;height:50px;background:#0c1622;display:flex;align-items:center;justify-content:center;flex:none;"><span style="font-weight:900;font-size:22px;color:#15a6dc;font-family:'Sora',sans-serif;">02</span></div>
+          <div><div style="font-weight:700;color:#171a1f;font-size:13px;line-height:1.35;">Vienna Turning Eng. &amp; Steel</div><div style="font-size:11.5px;color:#8a929c;margin-top:4px;">Steel Fabrication &amp; CNC Machining</div></div>
+        </a>
+        <a href="./linu-tech.dc.html" style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #eef1f4;text-decoration:none;align-items:center;">
+          <div style="width:66px;height:50px;background:#0c1622;display:flex;align-items:center;justify-content:center;flex:none;"><span style="font-weight:900;font-size:22px;color:#f26a21;font-family:'Sora',sans-serif;">03</span></div>
+          <div><div style="font-weight:700;color:#171a1f;font-size:13px;line-height:1.35;">Linu Tech Cont.</div><div style="font-size:11.5px;color:#8a929c;margin-top:4px;">Electrical &amp; MEP Contracting</div></div>
+        </a>
+        <a href="./vintron-technical.dc.html" style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #eef1f4;text-decoration:none;align-items:center;">
+          <div style="width:66px;height:50px;background:#0c1622;display:flex;align-items:center;justify-content:center;flex:none;"><span style="font-weight:900;font-size:22px;color:#15a6dc;font-family:'Sora',sans-serif;">04</span></div>
+          <div><div style="font-weight:700;color:#171a1f;font-size:13px;line-height:1.35;">Vintron Technical Services</div><div style="font-size:11.5px;color:#8a929c;margin-top:4px;">Technical &amp; Maintenance Services</div></div>
+        </a>
+        <a href="./venus-auto.dc.html" style="display:flex;gap:14px;padding:14px 0;text-decoration:none;align-items:center;">
+          <div style="width:66px;height:50px;background:#0c1622;display:flex;align-items:center;justify-content:center;flex:none;"><span style="font-weight:900;font-size:22px;color:#f26a21;font-family:'Sora',sans-serif;">05</span></div>
+          <div><div style="font-weight:700;color:#171a1f;font-size:13px;line-height:1.35;">Venus Auto Maintenance</div><div style="font-size:11.5px;color:#8a929c;margin-top:4px;">Automotive Services</div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = {};
+  renderVals() { return {}; }
+}
+</script>
+<script>
+  function vwOpenPanel(){document.getElementById('vw-gp').style.transform='translateX(0)';document.getElementById('vw-gp-ov').style.display='block';document.body.style.overflow='hidden';}
+  function vwClosePanel(){document.getElementById('vw-gp').style.transform='translateX(100%)';document.getElementById('vw-gp-ov').style.display='none';document.body.style.overflow='';}
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')vwClosePanel();});
+  document.addEventListener('click',function(e){
+    if(e.target.closest('#vw-grid-btn')){vwOpenPanel();return;}
+    var ov=document.getElementById('vw-gp-ov');if(ov&&e.target===ov){vwClosePanel();return;}
+    if(e.target.closest('#vw-close-btn')){vwClosePanel();return;}
+  });
+</script>
+</body>
+</html>
